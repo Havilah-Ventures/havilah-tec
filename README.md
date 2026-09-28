@@ -28,6 +28,7 @@ Next.js 16, React 19, Tailwind CSS 4, Framer Motion. Brand tokens match the pare
 | `/services` | Practice areas from the Ventures services offer |
 | `/approach` | Methodology and engagement path |
 | `/about` | The firm, how an engagement runs, how we deliver, capabilities |
+| `/careers` | No openings at this time; check back |
 | `/contact` | Inquiry form |
 | `/privacy` `/terms` | Legal |
 

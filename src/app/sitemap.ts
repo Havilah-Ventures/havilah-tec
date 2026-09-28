@@ -6,6 +6,7 @@ const staticPaths = [
   "/services",
   "/approach",
   "/about",
+  "/careers",
   "/contact",
   "/privacy",
   "/terms",
