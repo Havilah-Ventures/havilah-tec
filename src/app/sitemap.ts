@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
-import { serviceLines, servicePath, siteConfig } from "@/lib/site";
+import { allServices, servicePath, siteConfig } from "@/lib/site";
+import { insights } from "@/lib/insights";
 
 const staticPaths = [
   "/",
@@ -7,6 +8,8 @@ const staticPaths = [
   "/approach",
   "/about",
   "/careers",
+  "/case-studies",
+  "/insights",
   "/contact",
   "/privacy",
   "/terms",
@@ -20,12 +23,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: path === "/" ? 1 : 0.7,
   }));
 
-  for (const line of serviceLines) {
+  for (const line of allServices) {
     pages.push({
       url: `${siteConfig.url}${servicePath(line.id)}`,
       lastModified: new Date("2026-09-20"),
       changeFrequency: "monthly",
       priority: 0.6,
+    });
+  }
+
+  for (const post of insights) {
+    pages.push({
+      url: `${siteConfig.url}/insights/${post.slug}`,
+      lastModified: new Date("2026-09-30"),
+      changeFrequency: "monthly",
+      priority: 0.5,
     });
   }
 

@@ -25,13 +25,19 @@ Next.js 16, React 19, Tailwind CSS 4, Framer Motion. Brand tokens match the pare
 
 | Path | Purpose |
 |------|---------|
-| `/` | Home — the meeting, the diagnostic, practice areas |
-| `/diagnostic` | The product |
-| `/services` | Practice areas from the Ventures services offer |
-| `/approach` | Methodology and engagement path |
-| `/about` | The disputed number, how an engagement starts, capabilities, inquiry |
-| `/careers` | No openings at this time; check back |
-| `/contact` | Inquiry form |
+| `/` | Home — one trusted number, four services, fit call |
+| `/services` | Four offers, plus a path into the diagnostic |
+| `/services/platforms` | Data engineering and cloud platforms |
+| `/services/analytics` | Analytics and AI-ready data |
+| `/services/governance` | Governance and data quality |
+| `/services/diagnostic` | Contested Metric Diagnostic |
+| `/services/partnership` | Partner and subcontract delivery |
+| `/approach` | How we work |
+| `/about` | The firm, the problem before the engineering, inquiry |
+| `/case-studies` | Situations: challenge and how the engagement responds |
+| `/insights` | Three notes on the number |
+| `/careers` | No openings at this time; how to apply |
+| `/contact` | Fit-call inquiry |
 | `/privacy` `/terms` | Legal |
 
 Contracts and invoices: **Havilah Technologies LLC**. Parent brand: Havilah Ventures.

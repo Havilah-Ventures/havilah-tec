@@ -1,23 +1,14 @@
+import Link from "next/link";
 import { CtaBand } from "@/components/CtaBand";
 import { FadeIn } from "@/components/FadeIn";
 import { PageHero } from "@/components/PageHero";
-import { PracticeAreaCard } from "@/components/PracticeAreaCard";
-import { StackStrip } from "@/components/StackStrip";
 import { createPageMetadata } from "@/lib/metadata";
-import {
-  clientProfile,
-  dataChallenges,
-  engagementModels,
-  serviceGroups,
-  servicePath,
-  servicesInGroup,
-  siteConfig,
-} from "@/lib/site";
+import { serviceLines, servicePath, siteConfig } from "@/lib/site";
 
 export const metadata = createPageMetadata({
   title: "Services",
   description:
-    "When two official numbers disagree, Havilah Technologies LLC starts with a written ruling, then pipelines, dbt, platforms, analytics, governance, and partner workstreams.",
+    "Data engineering, analytics, governance, and a contested-metric diagnostic on Snowflake, dbt, and AWS. Delivered under a written SOW in your environment.",
   path: "/services",
 });
 
@@ -26,142 +17,59 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="A data portfolio you can contract by workstream"
-        description={`${siteConfig.serviceTagline} Commercial buyers and delivery partners engage ${siteConfig.legalName} on a named SOW.`}
-        cta={{ href: "/contact", label: "Start an engagement" }}
+        title="What we do"
+        description={`${siteConfig.legalName} contracts four kinds of work. Each one is a named statement of work, delivered in your environment.`}
+        cta={{ href: "/contact", label: "Book a fit call" }}
       />
 
-      <StackStrip />
-
-      {serviceGroups.map((group) => {
-        const lines = servicesInGroup(group.id);
-        return (
-          <section
-            key={group.id}
-            className="border-b border-white/10 bg-white/[0.02]"
-          >
-            <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
-              <FadeIn>
-                <p className="text-xs uppercase tracking-[0.28em] text-gold">
-                  {group.name}
-                </p>
-                <h2 className="mt-4 font-display text-3xl text-white">
-                  {group.summary}
-                </h2>
-              </FadeIn>
-              <div
-                className={`mt-10 grid gap-6 ${
-                  lines.length === 1 ? "lg:grid-cols-1" : "lg:grid-cols-2"
-                }`}
-              >
-                {lines.map((area, index) => (
-                  <PracticeAreaCard
-                    key={area.id}
-                    id={area.id}
-                    name={area.name}
-                    summary={area.summary}
-                    capabilities={area.capabilities}
-                    index={index}
-                    href={servicePath(area.id)}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      })}
-
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-        <FadeIn>
-          <p className="text-xs uppercase tracking-[0.28em] text-gold">
-            Why this work exists
-          </p>
-          <h2 className="mt-4 max-w-3xl font-display text-3xl text-white sm:text-4xl">
-            Pipelines, models, and AI fail in the same places
-          </h2>
-        </FadeIn>
-
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {dataChallenges.map((challenge, index) => (
-            <FadeIn key={challenge.title} delay={index * 0.05}>
-              <article className="h-full rounded-sm border border-white/10 p-6">
-                <h3 className="font-display text-lg text-white">
-                  {challenge.title}
-                </h3>
+        <div className="grid gap-6 lg:grid-cols-2">
+          {serviceLines.map((line, index) => (
+            <FadeIn key={line.id} delay={index * 0.05}>
+              <article className="flex h-full flex-col rounded-sm border border-white/10 p-8">
+                <h2 className="font-display text-2xl text-white">{line.name}</h2>
                 <p className="mt-4 text-sm leading-7 text-secondary">
-                  {challenge.description}
+                  {line.summary}
                 </p>
+                <p className="mt-4 text-sm leading-7 text-white">
+                  Best for: {line.bestFor}
+                </p>
+                <Link
+                  href={servicePath(line.id)}
+                  className="mt-8 text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
+                >
+                  View this service
+                </Link>
               </article>
             </FadeIn>
           ))}
         </div>
-      </section>
 
-      <section className="border-t border-white/10 bg-white/[0.02]">
-        <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <FadeIn>
-              <p className="text-xs uppercase tracking-[0.28em] text-gold">
-                How we engage
-              </p>
-              <h2 className="mt-4 font-display text-3xl text-white">
-                Four commercial shapes. One LLC on the SOW.
-              </h2>
-              <p className="mt-6 text-base leading-8 text-secondary">
-                Commercial terms are scoped individually.{" "}
-                {siteConfig.legalName} signs.
-              </p>
-            </FadeIn>
-
-            <div className="space-y-6">
-              {engagementModels.map((model, index) => (
-                <FadeIn key={model.name} delay={index * 0.08}>
-                  <article className="rounded-sm border border-white/10 p-6">
-                    <p className="text-xs uppercase tracking-[0.2em] text-gold">
-                      {String(index + 1).padStart(2, "0")}
-                    </p>
-                    <h3 className="mt-2 font-display text-xl text-white">
-                      {model.name}
-                    </h3>
-                    <p className="mt-4 text-sm leading-7 text-secondary">
-                      {model.description}
-                    </p>
-                  </article>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
         <FadeIn>
-          <p className="text-xs uppercase tracking-[0.28em] text-gold">
-            Who we serve
-          </p>
-          <h2 className="mt-4 max-w-3xl font-display text-3xl text-white">
-            Operators, data leaders, and delivery partners
-          </h2>
+          <article className="mt-6 rounded-sm border border-gold/30 bg-gold/[0.04] p-8">
+            <h2 className="font-display text-2xl text-white">
+              Not sure where to start?
+            </h2>
+            <p className="mt-4 max-w-3xl text-sm leading-7 text-secondary">
+              If two official numbers disagree, start with the Contested Metric
+              Diagnostic. It names which figure is valid before anyone funds a
+              larger build.
+            </p>
+            <Link
+              href={servicePath("diagnostic")}
+              className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
+            >
+              Start with the diagnostic
+            </Link>
+          </article>
         </FadeIn>
-        <dl className="mt-12 grid gap-8 md:grid-cols-3">
-          {[
-            { label: "Organizations", value: clientProfile.organizations },
-            { label: "Environments", value: clientProfile.environments },
-            { label: "Leadership", value: clientProfile.leaders },
-          ].map((item) => (
-            <div key={item.label}>
-              <dt className="text-xs uppercase tracking-[0.2em] text-gold">
-                {item.label}
-              </dt>
-              <dd className="mt-3 text-sm leading-7 text-secondary">
-                {item.value}
-              </dd>
-            </div>
-          ))}
-        </dl>
       </section>
 
-      <CtaBand />
+      <CtaBand
+        title="Tell us the workstream."
+        copy="We will tell you whether a diagnostic, a build, or a partner workstream is the right next step."
+        buttonLabel="Book a fit call"
+      />
     </>
   );
 }

@@ -124,7 +124,8 @@ export default function AboutPage() {
             <p>
               We work within the client’s existing environment, technology
               stack, and operating requirements. Engagements are contracted and
-              invoiced by {siteConfig.legalName}.
+              invoiced by {siteConfig.legalName}. {siteConfig.legalName} is a{" "}
+              {siteConfig.parentName} company.
             </p>
           </div>
           <div className="mt-10">

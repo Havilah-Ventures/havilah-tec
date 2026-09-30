@@ -16,7 +16,7 @@ export function createPageMetadata({
     !path || path === "/" ? siteConfig.url : `${siteConfig.url}${path}`;
   const fullTitle =
     path === "" || path === "/"
-      ? `${siteConfig.name} | ${siteConfig.operatingFocus}`
+      ? siteConfig.homeTitle
       : `${title} | ${siteConfig.name}`;
 
   return {

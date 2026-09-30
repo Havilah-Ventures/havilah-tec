@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Logo } from "./Logo";
-import { navLinks, serviceLines, servicePath } from "@/lib/site";
+import { primaryNav, serviceLines, servicePath } from "@/lib/site";
 
 export function Header() {
   const pathname = usePathname();
@@ -34,17 +34,6 @@ export function Header() {
         <Logo />
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Main">
-          <Link
-            href="/about"
-            className={`text-sm tracking-wide transition-colors ${
-              pathname === "/about" || pathname.startsWith("/about/")
-                ? "text-gold"
-                : "text-secondary hover:text-white"
-            }`}
-          >
-            About
-          </Link>
-
           <div
             ref={servicesRef}
             className="relative"
@@ -116,29 +105,27 @@ export function Header() {
             ) : null}
           </div>
 
-          {navLinks
-            .filter((link) => link.href !== "/about")
-            .map((link) => {
-              const active =
-                pathname === link.href || pathname.startsWith(`${link.href}/`);
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`text-sm tracking-wide transition-colors ${
-                    active ? "text-gold" : "text-secondary hover:text-white"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
+          {primaryNav.map((link) => {
+            const active =
+              pathname === link.href || pathname.startsWith(`${link.href}/`);
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`text-sm tracking-wide transition-colors ${
+                  active ? "text-gold" : "text-secondary hover:text-white"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
 
           <Link
             href="/contact"
             className="rounded-sm border border-gold/40 bg-gold/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold/20"
           >
-            Start an engagement
+            Book a fit call
           </Link>
         </nav>
 
@@ -161,16 +148,6 @@ export function Header() {
           aria-label="Mobile"
         >
           <div className="flex flex-col gap-4">
-            <Link
-              href="/about"
-              onClick={() => setOpen(false)}
-              className={`text-sm tracking-wide ${
-                pathname === "/about" ? "text-gold" : "text-secondary"
-              }`}
-            >
-              About
-            </Link>
-
             <div>
               <p className="text-xs uppercase tracking-[0.2em] text-gold">
                 Services
@@ -206,27 +183,25 @@ export function Header() {
               </ul>
             </div>
 
-            {navLinks
-              .filter((link) => link.href !== "/about")
-              .map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className={`text-sm tracking-wide ${
-                    pathname === link.href ? "text-gold" : "text-secondary"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
+            {primaryNav.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={`text-sm tracking-wide ${
+                  pathname === link.href ? "text-gold" : "text-secondary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
 
             <Link
               href="/contact"
               onClick={() => setOpen(false)}
               className="pt-2 text-sm uppercase tracking-[0.18em] text-gold"
             >
-              Start an engagement
+              Book a fit call
             </Link>
           </div>
         </nav>

@@ -17,8 +17,8 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Tell us the workstream"
-        description="Name the stack, the systems, and the outcome. We reply with a scoped conversation — not a platform pitch."
+        title="Book a fit call"
+        description="Name the workstream. We reply with a time for a thirty-minute call, or we tell you if it is not a fit."
       />
 
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
@@ -29,10 +29,14 @@ export default function ContactPage() {
                 <p className="text-xs uppercase tracking-[0.24em] text-gold">
                   What happens next
                 </p>
-                <p className="mt-3 text-base leading-8 text-secondary">
-                  We schedule a thirty-minute call. If it is a fit, you receive
-                  a written SOW under {siteConfig.legalName}.
-                </p>
+                <ol className="mt-4 space-y-4 text-sm leading-7 text-secondary">
+                  <li>You send the workstream, and the metric if two numbers disagree.</li>
+                  <li>We reply with a time for a thirty-minute fit call, or we say it is not a fit.</li>
+                  <li>
+                    If it is a fit, you receive a written statement of work
+                    under {siteConfig.legalName}.
+                  </li>
+                </ol>
                 <Link
                   href="/services"
                   className="mt-4 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"

@@ -1,5 +1,11 @@
 import Link from "next/link";
-import { legalLinks, navLinks, serviceLines, servicePath, siteConfig } from "@/lib/site";
+import {
+  footerFirmLinks,
+  legalLinks,
+  serviceLines,
+  servicePath,
+  siteConfig,
+} from "@/lib/site";
 
 export function Footer() {
   const year = new Date().getFullYear();
@@ -43,7 +49,7 @@ export function Footer() {
               Firm
             </p>
             <ul className="mt-4 space-y-3">
-              {navLinks.map((link) => (
+              {footerFirmLinks.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

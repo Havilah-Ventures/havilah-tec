@@ -5,12 +5,13 @@ import { FadeIn } from "@/components/FadeIn";
 import { PageHero } from "@/components/PageHero";
 import { createPageMetadata } from "@/lib/metadata";
 import {
+  allServices,
   diagnosticHops,
   diagnosticOutputs,
   getService,
-  serviceLines,
   servicePath,
   siteConfig,
+  stack,
 } from "@/lib/site";
 
 type PageProps = {
@@ -18,7 +19,7 @@ type PageProps = {
 };
 
 export function generateStaticParams() {
-  return serviceLines.map((line) => ({ slug: line.id }));
+  return allServices.map((line) => ({ slug: line.id }));
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -49,14 +50,27 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   return (
     <>
       <PageHero
-        eyebrow="Service"
+        eyebrow={service.id === "partnership" ? "Partners" : "Service"}
         title={service.name}
         description={service.lead}
         cta={{
           href: "/contact",
-          label: isDiagnostic ? "Start a diagnostic" : "Start an engagement",
+          label: isDiagnostic ? "Start a diagnostic" : "Book a fit call",
         }}
       />
+
+      <section className="border-b border-white/10 bg-navy-deep">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-6 py-5 lg:px-8">
+          <p className="text-[11px] uppercase tracking-[0.22em] text-gold">
+            Stack
+          </p>
+          {stack.map((item) => (
+            <span key={item} className="text-sm text-secondary">
+              {item}
+            </span>
+          ))}
+        </div>
+      </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
@@ -230,6 +244,28 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
+              Questions
+            </p>
+          </FadeIn>
+          <dl className="mt-8 max-w-3xl space-y-8">
+            {service.faqs.map((item) => (
+              <div key={item.question}>
+                <dt className="font-display text-lg text-white">
+                  {item.question}
+                </dt>
+                <dd className="mt-2 text-sm leading-7 text-secondary">
+                  {item.answer}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="border-t border-white/10">
+        <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
+          <FadeIn>
+            <p className="text-xs uppercase tracking-[0.28em] text-gold">
               Related services
             </p>
           </FadeIn>
@@ -254,7 +290,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <CtaBand
         title={`Discuss ${service.name}.`}
         copy={`${service.name} is contracted under ${siteConfig.legalName}. Tell us the stack, the systems, and the outcome.`}
-        buttonLabel={isDiagnostic ? "Start a diagnostic" : "Start an engagement"}
+        buttonLabel={isDiagnostic ? "Start a diagnostic" : "Book a fit call"}
       />
     </>
   );

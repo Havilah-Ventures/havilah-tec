@@ -8,6 +8,26 @@ const nextConfig: NextConfig = {
         destination: "/services/diagnostic",
         permanent: true,
       },
+      {
+        source: "/services/engineering",
+        destination: "/services/platforms",
+        permanent: true,
+      },
+      {
+        source: "/services/dbt",
+        destination: "/services/platforms",
+        permanent: true,
+      },
+      {
+        source: "/services/cloud",
+        destination: "/services/platforms",
+        permanent: true,
+      },
+      {
+        source: "/services/ai",
+        destination: "/services/analytics",
+        permanent: true,
+      },
     ];
   },
 };

@@ -29,6 +29,7 @@ export default function CareersPage() {
             </h2>
             <p className="mt-4 text-base leading-8 text-secondary">
               Please check back. When a role is open, it will be listed here.
+              To apply, write to {siteConfig.email} and name the role.
             </p>
           </div>
         </FadeIn>
