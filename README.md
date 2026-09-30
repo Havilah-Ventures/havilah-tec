@@ -15,6 +15,8 @@ npm run dev
 
 Opens at [http://localhost:3001](http://localhost:3001).
 
+Send Inquiry posts to `/api/inquiry` and delivers to `info@havilahtec.com`. It needs a [Resend](https://resend.com) key: set `RESEND_API_KEY` in `.env.local` and in the Vercel project. Verify `havilahtec.com` in Resend so the from address `inquiries@havilahtec.com` is allowed. `RESEND_FROM` overrides that from address.
+
 ## Stack
 
 Next.js 16, React 19, Tailwind CSS 4, Framer Motion. Brand tokens match the parent site (navy `#0B0F19`, gold `#C8A24A`).

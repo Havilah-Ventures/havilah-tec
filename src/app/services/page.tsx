@@ -17,7 +17,7 @@ import {
 export const metadata = createPageMetadata({
   title: "Services",
   description:
-    "Havilah Technologies data portfolio: pipelines, dbt, Snowflake, AWS, analytics, AI-ready data, governance, partner subcontracting, and metric diagnostics.",
+    "When two official numbers disagree, Havilah Technologies LLC starts with a written ruling, then pipelines, dbt, platforms, analytics, governance, and partner workstreams.",
   path: "/services",
 });
 

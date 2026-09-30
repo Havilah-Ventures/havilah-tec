@@ -25,7 +25,7 @@ export function HomeHero() {
       <div className="relative mx-auto flex max-w-6xl flex-col gap-14 px-6 py-24 lg:flex-row lg:items-center lg:justify-between lg:px-8 lg:py-32">
         <FadeIn className="max-w-3xl">
           <p className="text-xs uppercase tracking-[0.32em] text-gold">
-            {siteConfig.operatingFocus}
+            {siteConfig.heroEyebrow}
           </p>
           <h1 className="mt-6 text-balance font-display text-4xl leading-tight text-white sm:text-5xl lg:text-6xl">
             {siteConfig.tagline}
@@ -37,7 +37,7 @@ export function HomeHero() {
             {siteConfig.legalName} · A {siteConfig.parentName} company
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button href="/services">View services</Button>
+            <Button href="/services/diagnostic">See the diagnostic</Button>
             <Button href="/contact" variant="ghost">
               Start an engagement
             </Button>

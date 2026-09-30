@@ -4,16 +4,18 @@ export const siteConfig = {
   parentName: "Havilah Ventures",
   parentLegalName: "Havilah Ventures LLC",
   parentUrl: "https://www.haviventures.com",
-  tagline: "Data engineering, analytics, and AI-ready platforms — delivered under a written SOW.",
+  tagline:
+    "Two official reports. Two different numbers. A written ruling on which one holds.",
+  heroEyebrow: "When two official numbers disagree",
   heroSubline:
-    "We design, build, and govern the warehouse on Snowflake, dbt, and AWS. Pipelines, transformation, analytics, and named workstreams for commercial buyers and delivery partners.",
+    "The Contested Metric Diagnostic traces one metric from the source system to the report and leaves a written ruling, plus evidence SQL your team can re-run — typically in about ten business days.",
   operatingFocus: "Data Engineering, Analytics & AI",
   serviceTagline:
     "From source systems to certified marts: engineering, transformation, cloud platforms, analytics, governance, and AI-ready data.",
   email: "info@havilahtec.com",
   url: "https://www.havilahtec.com",
   description:
-    "Havilah Technologies LLC delivers data engineering, dbt transformation, Snowflake and AWS platforms, analytics, AI-ready data, and data quality programs. A Havilah Ventures company.",
+    "When two official numbers disagree, Havilah Technologies LLC traces the source and delivers a written ruling. A Havilah Ventures company.",
 };
 
 export const navLinks = [
@@ -47,34 +49,73 @@ export const proofPoints = [
 
 export const dataChallenges = [
   {
-    title: "Pipelines that cannot be trusted at close",
+    title: "Two revenues for one month",
     description:
-      "Jobs fail, incremental models drift, and CDC drops deletes. Finance cannot defend the number that lands in the board pack.",
+      "Finance and another function report different revenue for the same month.",
   },
   {
-    title: "dbt estates that grew without grain",
-    description:
-      "Hundreds of models, three definitions of revenue, and no owner of the hop between certified and the workbook.",
+    title: "Close slips into spreadsheets",
+    description: "Close slips because someone reconciles it by hand.",
   },
   {
-    title: "Warehouse cost without performance",
-    description:
-      "Snowflake and AWS bills climb because queries, materializations, and clustering were never designed for the actual grain.",
+    title: "The board asks",
+    description: "The board asks, and nobody will stand behind the answer.",
   },
   {
-    title: "Conflicting metrics across systems",
+    title: "A dashboard moved",
     description:
-      "Finance, operations, and leadership rely on different numbers — both dashboards refreshed last night, nobody yields.",
+      "A dashboard changed after a migration and nobody can say why.",
   },
   {
-    title: "AI stalled on messy data",
+    title: "An audit is coming",
     description:
-      "Cortex, copilots, and agents pick a join path and answer with confidence. They do not flag that two revenues already exist.",
+      "An audit is coming and the path from source to number is not written down.",
   },
   {
-    title: "Programs that need a specialist subcontractor",
-    description:
-      "Primes and mid-market firms win the platform deal, then need Snowflake, dbt, and AWS engineering that is scoped — not an open ticket queue.",
+    title: "An AI pilot quotes a number",
+    description: "An AI pilot quotes a number nobody has certified.",
+  },
+];
+
+export const costOfWaiting = [
+  {
+    title: "Time lost each close",
+    detail:
+      "Analyst and finance hours go to reconciling the same disagreement by hand.",
+  },
+  {
+    title: "Decisions on the wrong number",
+    detail:
+      "Close, commissions, or an operating call proceeds on a figure nobody has settled.",
+  },
+  {
+    title: "Audit exposure",
+    detail:
+      "When the path from source to the filed number is not written down, the question arrives before the evidence.",
+  },
+  {
+    title: "An AI effort on an uncertified metric",
+    detail:
+      "A copilot or agent quotes a number the business has not agreed is real.",
+  },
+];
+
+export const buyerConcerns = [
+  {
+    role: "Controller or CFO",
+    worry: "Close on a number you can defend.",
+  },
+  {
+    role: "Head of Data",
+    worry: "Stop refereeing dashboards.",
+  },
+  {
+    role: "VP Operations",
+    worry: "One metric that runs the floor.",
+  },
+  {
+    role: "Delivery partner",
+    worry: "A workstream a program manager can accept.",
   },
 ];
 
@@ -107,7 +148,7 @@ export const serviceLines: ServiceLine[] = [
   {
     id: "engineering",
     name: "Data Engineering & Pipelines",
-    navHint: "ETL/ELT, CDC, orchestration",
+    navHint: "Data arrives late, incomplete, or not at all",
     summary:
       "We design and build the ingest, CDC, and orchestration that move ERP, CRM, files, and APIs into a warehouse operations can run.",
     lead: "We help you get operational data out of source systems and into Snowflake or AWS on a schedule the business can defend — not a brittle job that only the last engineer understands.",
@@ -162,7 +203,7 @@ export const serviceLines: ServiceLine[] = [
   {
     id: "dbt",
     name: "dbt, SQL & Transformation",
-    navHint: "Models, tests, grain",
+    navHint: "Every team calculates the metric differently",
     summary:
       "We build and refactor the dbt and SQL layer that turns landings into certified marts finance and operations can both use.",
     lead: "We help you turn raw landings into tested, documented marts — with grain, tests, and owners — so a new engineer can follow the model and finance can defend the number.",
@@ -217,7 +258,7 @@ export const serviceLines: ServiceLine[] = [
   {
     id: "cloud",
     name: "Cloud Data Platforms",
-    navHint: "Snowflake and AWS",
+    navHint: "Warehouse cost is climbing and the number is not getting better",
     summary:
       "We design, migrate, and tune Snowflake and AWS so the platform matches the workload — roles, performance, cost, and security.",
     lead: "We help you land on Snowflake and AWS as an operating platform: warehouse layout, roles, data paths, and a migration you can run in parallel — not a weekend cutover.",
@@ -272,7 +313,7 @@ export const serviceLines: ServiceLine[] = [
   {
     id: "analytics",
     name: "Analytics Architecture & BI",
-    navHint: "Metrics, reporting, BI grain",
+    navHint: "The reports disagree",
     summary:
       "We define and deliver the metric layer so Tableau, Power BI, or Looker reports the warehouse — not a fourth version of revenue.",
     lead: "We help you put reporting on certified grain: metric definitions, semantic structure, and BI workbooks that finance and operations can both use.",
@@ -327,7 +368,7 @@ export const serviceLines: ServiceLine[] = [
   {
     id: "ai",
     name: "AI-Ready Data",
-    navHint: "Governed grain before an agent quotes a number",
+    navHint: "The pilot quotes a number nobody trusts",
     summary:
       "We prepare certified marts, features, and semantic context so warehouse AI and copilots quote numbers the business has already ruled.",
     lead: "We help you make the warehouse safe for AI: governed inputs, documented grain, and a clear gate for what a copilot or agent is allowed to quote.",
@@ -437,7 +478,7 @@ export const serviceLines: ServiceLine[] = [
   {
     id: "governance",
     name: "Data Integrity, Quality & Governance",
-    navHint: "Tests, lineage, ownership, audit",
+    navHint: "You cannot show where the number came from",
     summary:
       "We put tests, lineage, owners, and reconciliation in place so accuracy holds after delivery — at close, audit, and in regulated programs.",
     lead: "We help you keep the warehouse accurate after the first delivery: quality tests, lineage, named owners, and evidence finance can show an auditor.",
@@ -492,7 +533,7 @@ export const serviceLines: ServiceLine[] = [
   {
     id: "partnership",
     name: "Partner & Subcontract Delivery",
-    navHint: "Named workstreams for primes and partners",
+    navHint: "The program needs a named Snowflake or dbt workstream",
     summary:
       "We deliver a named Snowflake, dbt, or AWS workstream under subcontract — in your security boundary, with a handoff a program manager can accept.",
     lead: "We help primes and delivery partners fill a defined data workstream: pipelines, models, migration, or platform engineering under Havilah Technologies LLC — not an open ticket queue.",
@@ -553,16 +594,16 @@ export const practiceAreas = serviceLines.filter((line) =>
 
 export const serviceGroups = [
   {
+    id: "govern",
+    name: "Govern",
+    summary: "Settle a disputed number, then the quality and AI-ready grain that keep it settled.",
+    ids: ["diagnostic", "governance", "ai"],
+  },
+  {
     id: "build",
     name: "Build",
     summary: "Pipelines, models, platforms, and reporting infrastructure.",
     ids: ["engineering", "dbt", "cloud", "analytics"],
-  },
-  {
-    id: "govern",
-    name: "Govern",
-    summary: "Quality, AI-ready grain, and metric integrity.",
-    ids: ["ai", "governance", "diagnostic"],
   },
   {
     id: "deliver",
@@ -579,6 +620,24 @@ export function servicesInGroup(groupId: (typeof serviceGroups)[number]["id"]) {
     .map((id) => getService(id))
     .filter((line): line is ServiceLine => Boolean(line));
 }
+
+export const homepageStart = [
+  {
+    name: "Metric review",
+    detail:
+      "Bring the two artifacts that disagree, the metric name, and the decision or deadline that depends on it. Thirty minutes. We say whether a diagnostic is the right next step.",
+  },
+  {
+    name: "Written SOW",
+    detail:
+      "A named workstream under Havilah Technologies LLC. Scope, owners, and acceptance criteria.",
+  },
+  {
+    name: "Delivery in your environment",
+    detail:
+      "Work lands in your warehouse and your git. Runbooks and handoff a program manager can accept.",
+  },
+];
 
 export const engagementStart = [
   {
@@ -637,13 +696,13 @@ export const engagementModels = [
 ];
 
 export const inquiryTypes = [
+  "Contested metric diagnostic",
   "Data engineering / pipelines",
   "dbt & transformation",
   "Snowflake / AWS platform",
   "Analytics / BI",
   "AI-ready data",
   "Data quality & governance",
-  "Contested metric diagnostic",
   "Subcontract / partner delivery",
   "Other",
 ];
