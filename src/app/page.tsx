@@ -40,7 +40,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              Featured situation
+              A typical situation
             </p>
             <h2 className="mt-4 max-w-3xl font-display text-3xl text-white">
               {situations[0].title}
@@ -55,7 +55,7 @@ export default function HomePage() {
               href="/case-studies"
               className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
             >
-              See the situations
+              See all five situations
             </Link>
           </FadeIn>
         </div>
@@ -89,7 +89,7 @@ export default function HomePage() {
             How an engagement starts
           </p>
           <h2 className="mt-4 max-w-3xl font-display text-3xl text-white sm:text-4xl">
-            Fit call, written SOW, delivery in your environment
+            Three steps, then the work starts
           </h2>
         </FadeIn>
         <ol className="mt-12 grid gap-6 md:grid-cols-3">
@@ -150,7 +150,7 @@ export default function HomePage() {
       <CtaBand
         title="Tell us the workstream."
         copy="Pipelines, dbt, Snowflake, AWS, analytics, governance, or a partner engagement. We will scope it in writing."
-        buttonLabel="Book a fit call"
+        buttonLabel="Request a fit call"
       />
     </>
   );

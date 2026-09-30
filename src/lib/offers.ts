@@ -237,7 +237,7 @@ export const serviceLines: ServiceLine[] = [
       "Two reports, two answers? We trace the metric to its source and give you a written ruling plus SQL you can re-run.",
     lead: "Two official numbers. Both claim truth. We trace one metric from the source through the warehouse into the report and leave a written ruling plus evidence SQL — typically in about ten business days.",
     overview: [
-      "When the jobs are green and both dashboards refreshed, the problem is not a failed pipeline. It is grain, a filter, a copied rule, or a delete the load dropped.",
+      "When the jobs are green and both dashboards refreshed, the problem is not a failed pipeline. It is the level of detail — an order total versus the line items — a filter, a copied rule, or a delete the load dropped.",
       "The diagnostic is a fixed, short statement of work. Building the fix is a separate engagement if you want it.",
     ],
     howWeHelp: [

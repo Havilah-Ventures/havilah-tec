@@ -7,7 +7,7 @@ export const situations = [
     situation:
       "Finance closes on one revenue figure. Sales or operations reports another for the same month. Both extracts refreshed overnight. The board pack cannot pick a side.",
     challenge:
-      "The jobs are green, so nobody can call it a pipeline failure. The disagreement sits in grain, a filter, a copied business rule, or a delete the load did not keep. Close slips while someone reconciles it in a spreadsheet. Commissions or a forecast may already be using the other figure.",
+      "The jobs are green, so nobody can call it a pipeline failure. The disagreement sits in the level of detail — an order total versus the line items — or in a filter, a copied business rule, or a delete the load did not keep. Close slips while someone reconciles it in a spreadsheet. Commissions or a forecast may already be using the other figure.",
     response:
       "The diagnostic takes that one metric and the two artifacts. It traces the number from the source system through the warehouse to the report and writes which figure is valid for which decision, with evidence SQL the team can re-run. The rebuild, if they want it, is a separate statement of work.",
   },
@@ -19,7 +19,7 @@ export const situations = [
     situation:
       "ERP, CRM, files, or an API are supposed to land in Snowflake or AWS before finance starts close. Some days the file is late, a delete never arrives, or the job fails quietly.",
     challenge:
-      "Analysts backfill by hand. The warehouse bill climbs because models and warehouses were never sized for the real grain. The last engineer who understood the run is gone, and there is no runbook for what to rerun and what not to backfill.",
+      "Analysts backfill by hand. The warehouse bill climbs because models and warehouses were never sized for the actual level of detail. The last engineer who understood the run is gone, and there is no runbook for what to rerun and what not to backfill.",
     response:
       "The engagement designs the path from those sources into the warehouse, builds the load and the dbt or SQL models with tests, and leaves the repository and a runbook in the client’s cloud and git. The team can operate the job after handoff.",
   },

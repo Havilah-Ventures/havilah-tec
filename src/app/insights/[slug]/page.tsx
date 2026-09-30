@@ -41,7 +41,7 @@ export default async function InsightPage({ params }: PageProps) {
       <CtaBand
         title="If this is the number you are stuck on, send it."
         copy="Name the metric, the two sources, and the decision that depends on it."
-        buttonLabel="Book a fit call"
+        buttonLabel="Request a fit call"
       />
     </>
   );

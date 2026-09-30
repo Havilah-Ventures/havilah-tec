@@ -9,14 +9,14 @@ export const siteConfig = {
   tagline: "One trusted number, in every report.",
   heroEyebrow: "Havilah Technologies",
   heroSubline:
-    "We build and govern Snowflake, dbt, and AWS data platforms so finance, operations, and AI tools all quote the same answer. Delivered under a written SOW, inside your environment.",
+    "We build and govern Snowflake, dbt, and AWS data platforms so finance, operations, and AI tools all quote the same answer.",
   operatingFocus: "Data Engineering, Analytics & AI",
   serviceTagline:
     "Four ways to put one trusted number in every report: platforms, analytics, governance, and a diagnostic when two official numbers disagree.",
   email: "info@havilahtec.com",
   url: "https://www.havilahtec.com",
   description:
-    "Data engineering, analytics, and AI-ready data on Snowflake, dbt, and AWS. Delivered under a written SOW in your environment. Book a 30-minute fit call.",
+    "Data engineering, analytics, and AI-ready data on Snowflake, dbt, and AWS. Delivered under a written SOW in your environment. Request a 30-minute fit call.",
 };
 
 export const primaryNav = [

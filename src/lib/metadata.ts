@@ -32,17 +32,18 @@ export function createPageMetadata({
       locale: "en_US",
       images: [
         {
-          url: "/logo/havilah-seal-primary.svg",
-          width: 120,
-          height: 120,
-          alt: `${siteConfig.name} logo`,
+          url: "/og/home.png",
+          width: 1200,
+          height: 630,
+          alt: `${siteConfig.name} — ${siteConfig.tagline}`,
         },
       ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: fullTitle,
       description,
+      images: ["/og/home.png"],
     },
   };
 }

@@ -194,7 +194,7 @@ export default function ApproachPage() {
       <CtaBand
         title="Tell us the workstream."
         copy="Thirty minutes is enough to say whether it is a fit."
-        buttonLabel="Book a fit call"
+        buttonLabel="Request a fit call"
       />
     </>
   );

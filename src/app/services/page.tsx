@@ -19,7 +19,7 @@ export default function ServicesPage() {
         eyebrow="Services"
         title="What we do"
         description={`${siteConfig.legalName} contracts four kinds of work. Each one is a named statement of work, delivered in your environment.`}
-        cta={{ href: "/contact", label: "Book a fit call" }}
+        cta={{ href: "/contact", label: "Request a fit call" }}
       />
 
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
@@ -68,7 +68,7 @@ export default function ServicesPage() {
       <CtaBand
         title="Tell us the workstream."
         copy="We will tell you whether a diagnostic, a build, or a partner workstream is the right next step."
-        buttonLabel="Book a fit call"
+        buttonLabel="Request a fit call"
       />
     </>
   );

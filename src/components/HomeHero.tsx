@@ -37,7 +37,7 @@ export function HomeHero() {
             {siteConfig.legalName} · A {siteConfig.parentName} company
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-            <Button href="/contact">Book a 30-minute fit call</Button>
+            <Button href="/contact">Request a 30-minute fit call</Button>
             <Button href="/services" variant="ghost">
               See our services
             </Button>

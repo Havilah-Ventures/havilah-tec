@@ -71,7 +71,7 @@ export default function CaseStudiesPage() {
       <CtaBand
         title="If one of these is live, send it."
         copy="Name the metric or the workstream, and the decision that is waiting on it."
-        buttonLabel="Book a fit call"
+        buttonLabel="Request a fit call"
       />
     </>
   );

@@ -17,7 +17,7 @@ export default function ContactPage() {
     <>
       <PageHero
         eyebrow="Contact"
-        title="Book a fit call"
+        title="Request a 30-minute fit call"
         description="Name the workstream. We reply with a time for a thirty-minute call, or we tell you if it is not a fit."
       />
 

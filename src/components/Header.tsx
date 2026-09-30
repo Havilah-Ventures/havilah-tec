@@ -125,7 +125,7 @@ export function Header() {
             href="/contact"
             className="rounded-sm border border-gold/40 bg-gold/10 px-4 py-2 text-xs uppercase tracking-[0.2em] text-gold transition-colors hover:bg-gold/20"
           >
-            Book a fit call
+            Request a fit call
           </Link>
         </nav>
 
@@ -201,7 +201,7 @@ export function Header() {
               onClick={() => setOpen(false)}
               className="pt-2 text-sm uppercase tracking-[0.18em] text-gold"
             >
-              Book a fit call
+              Request a fit call
             </Link>
           </div>
         </nav>

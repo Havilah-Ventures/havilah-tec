@@ -55,9 +55,28 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         description={service.lead}
         cta={{
           href: "/contact",
-          label: isDiagnostic ? "Start a diagnostic" : "Book a fit call",
+          label: isDiagnostic ? "Start a diagnostic" : "Request a fit call",
         }}
       />
+
+      {isDiagnostic ? (
+        <section className="border-b border-white/10 bg-navy-deep">
+          <div className="mx-auto grid max-w-6xl gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
+            {[
+              ["One metric", "The number both sides claim"],
+              ["Two artifacts", "The reports or extracts in dispute"],
+              ["About ten business days", "A fixed, short statement of work"],
+              ["Written ruling", "Which number is valid for which decision"],
+              ["Evidence SQL", "Queries your team can re-run"],
+            ].map(([value, label]) => (
+              <div key={value} className="bg-navy-deep px-6 py-6">
+                <p className="font-display text-lg text-gold">{value}</p>
+                <p className="mt-2 text-sm leading-6 text-secondary">{label}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="border-b border-white/10 bg-navy-deep">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-6 py-5 lg:px-8">
@@ -290,7 +309,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       <CtaBand
         title={`Discuss ${service.name}.`}
         copy={`${service.name} is contracted under ${siteConfig.legalName}. Tell us the stack, the systems, and the outcome.`}
-        buttonLabel={isDiagnostic ? "Start a diagnostic" : "Book a fit call"}
+        buttonLabel={isDiagnostic ? "Start a diagnostic" : "Request a fit call"}
       />
     </>
   );

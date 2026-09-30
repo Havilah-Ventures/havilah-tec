@@ -6,7 +6,7 @@ export const insights = [
       "When both dashboards refreshed and the numbers still differ, the break is usually upstream of the chart.",
     paragraphs: [
       "Two official reports can both be current and still disagree. The jobs ran. The extracts landed. Finance and another function are looking at the same month and not the same figure.",
-      "The break is rarely the chart tool. It is grain, a filter, a copied business rule, or a delete the load did not keep. Each side can show a query that returns their number.",
+      "The break is rarely the chart tool. It is the level of detail — an order total versus the line items — a filter, a copied business rule, or a delete the load did not keep. Each side can show a query that returns their number.",
       "Settling it means tracing one metric from the source system through the warehouse to the report, then writing which figure is valid for which decision. A second dashboard does not do that.",
     ],
   },
