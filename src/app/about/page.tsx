@@ -8,46 +8,58 @@ import { siteConfig } from "@/lib/site";
 
 const engagementSteps = [
   {
-    name: "Metric review",
+    name: "A conversation",
     detail:
-      "Send the two artifacts that disagree, the metric name, and the decision or deadline that depends on it. We say whether a diagnostic is the right next step.",
+      "Name the challenge: unpaid invoices and unbilled work, two numbers that disagree, or a workflow someone repeats by hand. We say which line fits.",
   },
   {
-    name: "Written SOW",
+    name: "Written scope",
     detail:
-      "The scope, deliverables, responsibilities, and engagement terms are documented in a written statement of work before delivery begins.",
+      "Professional services get a statement of work before delivery. Havilah Flow starts as a conversation about an authorized sample.",
   },
   {
-    name: "Delivery in your environment",
+    name: "Work in your environment",
     detail:
-      "We build and deliver within the client environment, with the appropriate engineering, testing, documentation, and controls for the work.",
+      "Data work lands in your warehouse and your git. Automation lands in the systems you already run. A Flow sample is used only with written authorization.",
   },
 ];
 
 const deliveryPrinciples = [
   {
     title: "The situation",
-    copy: "We start with what you are living through: which two numbers disagree, who is waiting on them, and which decision is stuck.",
+    copy: "We start with the problem you can name: money already earned and hard to see, two reports that do not share a number, or a step someone repeats by hand.",
   },
   {
-    title: "The pain",
-    copy: "We name where it shows up. Close slips. The board asks. Commissions, an audit, or a pilot is about to use a figure nobody will stand behind.",
+    title: "The line that fits",
+    copy: "Havilah Flow is the pilot for revenue a service business has already earned. Data engineering is the professional service when the number itself is the problem. Automation is the service when one workflow is the problem.",
   },
   {
-    title: "The cost of leaving it",
-    copy: "We name what continues if the number stays unsettled: hours lost each close, a decision made on the wrong figure, and a question that arrives before the evidence.",
+    title: "A person stays on the decision",
+    copy: "A reminder, a message, or a change to a record waits for someone you authorize. A disputed metric is ruled in writing before a larger build.",
   },
   {
     title: "Engineering, after the problem is named",
-    copy: "Pipelines, models, warehouse structure, and controls come once the metric and the break are known. The build serves that problem.",
+    copy: "Pipelines, models, warehouse structure, and workflow connections come once the problem is known. The build serves that problem.",
   },
   {
     title: "In your environment",
-    copy: "The work lands in your architecture, tools, and standards. A copilot or agent is allowed to quote the number only after it has been ruled.",
+    copy: "Data work lands in your warehouse and your git. Automation lands in the systems you already run. A Flow sample is used only with written authorization.",
   },
 ];
 
 const capabilities = [
+  {
+    name: "Havilah Flow",
+    href: "/services/havilah-flow",
+    detail:
+      "An emerging pilot for service businesses. Unpaid invoices, completed work that may be unbilled, and follow-ups a person approves.",
+  },
+  {
+    name: "Data Engineering & Intelligence",
+    href: "/services/data-engineering",
+    detail:
+      "Pipelines, a metric layer, and governance on Snowflake, dbt, and AWS.",
+  },
   {
     name: "Contested Metric Diagnostic",
     href: "/services/diagnostic",
@@ -55,41 +67,17 @@ const capabilities = [
       "Start here when two official numbers disagree. One metric, a written ruling, and evidence SQL your team can re-run.",
   },
   {
-    name: "Data Engineering",
-    href: "/services/engineering",
+    name: "AI Automation & Digital Solutions",
+    href: "/services/ai-automation",
     detail:
-      "Pipelines, ingestion, transformation, orchestration, and production data workflows.",
-  },
-  {
-    name: "Analytics Engineering",
-    href: "/services/dbt",
-    detail:
-      "Dimensional modeling, business logic, metric definitions, testing, and analytics-ready datasets.",
-  },
-  {
-    name: "Data Platforms",
-    href: "/services/cloud",
-    detail:
-      "Warehouse design, data architecture, integrations, governance, and reliability.",
-  },
-  {
-    name: "Data Quality & Controls",
-    href: "/services/governance",
-    detail:
-      "Reconciliation, validation, testing, monitoring, and controls for critical business data.",
-  },
-  {
-    name: "AI-Ready Data",
-    href: "/services/ai",
-    detail:
-      "Data foundations designed to support AI, automation, machine learning, and advanced analytics.",
+      "One named workflow on the systems you already run. A person approves the step that changes a record.",
   },
 ];
 
 export const metadata = createPageMetadata({
   title: "About",
   description:
-    "When two official numbers disagree, Havilah Technologies LLC writes the ruling and delivers the engineering in the client environment. Send the metric to start.",
+    "Havilah Technologies LLC builds data platforms, automates a named workflow, and is developing Havilah Flow for revenue a service business has already earned.",
   path: "/about",
 });
 
@@ -98,8 +86,8 @@ export default function AboutPage() {
     <>
       <PageHero
         eyebrow="About"
-        title="Two official numbers. One written ruling."
-        description={`${siteConfig.legalName} is a professional data-services firm. We settle the metric the business cannot defend, then build the engineering that keeps it settled — in your environment, under a written statement of work.`}
+        title="Three lines. One firm."
+        description={`${siteConfig.legalName} is a technology firm. We engineer data platforms, automate a named workflow, and are developing Havilah Flow so a service business can see revenue it has already earned.`}
         cta={{ href: "/contact", label: "Send an inquiry" }}
       />
 
@@ -110,26 +98,28 @@ export default function AboutPage() {
           </p>
           <div className="mt-6 max-w-3xl space-y-4 text-base leading-8 text-secondary">
             <p>
-              Finance, operations, and technology leaders come to us when two
-              reports name the same metric and do not agree. Close, a board
-              question, an audit, or an AI pilot is waiting on the answer.
+              Service businesses, finance teams, and delivery partners come to
+              us with a problem they can name: money that has been earned and
+              is hard to see, a number two reports do not share, or a workflow
+              someone repeats by hand.
             </p>
             <p>
-              The first engagement is a Contested Metric Diagnostic: one
-              metric, traced from the source to the report, with a written
-              ruling and evidence SQL your team can re-run. The engineering
-              that follows — ingestion, transformation, warehouse design, and
-              controls — is what keeps that number defensible after delivery.
+              Havilah Flow is an emerging pilot for the first of those.
+              Data Engineering & Intelligence is the professional service for
+              Snowflake, dbt, and AWS, and it includes the Contested Metric
+              Diagnostic when two official numbers disagree. AI Automation
+              & Digital Solutions takes one named workflow and leaves a person
+              on the step that changes a record.
             </p>
             <p>
-              We work within the client’s existing environment, technology
-              stack, and operating requirements. Engagements are contracted and
-              invoiced by {siteConfig.legalName}. {siteConfig.legalName} is a{" "}
+              Professional services are contracted and invoiced by{" "}
+              {siteConfig.legalName}, in the client environment, under a
+              written statement of work. {siteConfig.legalName} is a{" "}
               {siteConfig.parentName} company.
             </p>
           </div>
           <div className="mt-10">
-            <Button href="/contact">Send the two numbers</Button>
+            <Button href="/contact">Discuss a business challenge</Button>
           </div>
         </FadeIn>
       </section>
@@ -141,7 +131,7 @@ export default function AboutPage() {
               How an engagement runs
             </p>
             <h2 className="mt-4 max-w-3xl font-display text-3xl text-white sm:text-4xl">
-              Send the disagreement. Then we scope the work.
+              Name the challenge. Then we scope the work.
             </h2>
           </FadeIn>
           <ol className="mt-12 grid gap-6 md:grid-cols-3">
@@ -213,8 +203,8 @@ export default function AboutPage() {
       </section>
 
       <CtaBand
-        title="If two reports disagree, send the metric."
-        copy="Name the two sources, the decision that depends on the number, and the deadline. We reply with whether a diagnostic is the right next step."
+        title="Tell us the business challenge."
+        copy="Unpaid invoices, two numbers that disagree, or a workflow someone repeats by hand. We reply with whether a conversation is the right next step."
         buttonLabel="Send an inquiry"
       />
     </>

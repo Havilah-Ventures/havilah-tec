@@ -3,12 +3,12 @@ import { CtaBand } from "@/components/CtaBand";
 import { FadeIn } from "@/components/FadeIn";
 import { PageHero } from "@/components/PageHero";
 import { createPageMetadata } from "@/lib/metadata";
-import { serviceLines, servicePath, siteConfig } from "@/lib/site";
+import { kindLabel, serviceLines, servicePath, siteConfig } from "@/lib/site";
 
 export const metadata = createPageMetadata({
   title: "Services",
   description:
-    "Data engineering, analytics, governance, and a contested-metric diagnostic on Snowflake, dbt, and AWS. Delivered under a written SOW in your environment.",
+    "Havilah Flow, data engineering on Snowflake, dbt, and AWS, and automation of a named workflow. Havilah Technologies LLC.",
   path: "/services",
 });
 
@@ -17,9 +17,9 @@ export default function ServicesPage() {
     <>
       <PageHero
         eyebrow="Services"
-        title="What we do"
-        description={`${siteConfig.legalName} contracts four kinds of work. Each one is a named statement of work, delivered in your environment.`}
-        cta={{ href: "/contact", label: "Request a fit call" }}
+        title="Three lines"
+        description={`${siteConfig.legalName} offers a revenue-intelligence pilot and two professional services. Each professional service is a named statement of work.`}
+        cta={{ href: "/contact", label: "Discuss a business challenge" }}
       />
 
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
@@ -27,7 +27,10 @@ export default function ServicesPage() {
           {serviceLines.map((line, index) => (
             <FadeIn key={line.id} delay={index * 0.05}>
               <article className="flex h-full flex-col rounded-sm border border-white/10 p-8">
-                <h2 className="font-display text-2xl text-white">{line.name}</h2>
+                <p className="text-xs uppercase tracking-[0.18em] text-gold">
+                  {kindLabel(line.kind)}
+                </p>
+                <h2 className="mt-3 font-display text-2xl text-white">{line.name}</h2>
                 <p className="mt-4 text-sm leading-7 text-secondary">
                   {line.summary}
                 </p>
@@ -53,22 +56,31 @@ export default function ServicesPage() {
             <p className="mt-4 max-w-3xl text-sm leading-7 text-secondary">
               If two official numbers disagree, start with the Contested Metric
               Diagnostic. It names which figure is valid before anyone funds a
-              larger build.
+              larger build. A prime who needs a named data workstream can read
+              how partnering works.
             </p>
-            <Link
-              href={servicePath("diagnostic")}
-              className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
-            >
-              Start with the diagnostic
-            </Link>
+            <div className="mt-6 flex flex-col gap-4 sm:flex-row">
+              <Link
+                href={servicePath("diagnostic")}
+                className="inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
+              >
+                Start with the diagnostic
+              </Link>
+              <Link
+                href={servicePath("partnership")}
+                className="inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
+              >
+                Partner delivery
+              </Link>
+            </div>
           </article>
         </FadeIn>
       </section>
 
       <CtaBand
-        title="Tell us the workstream."
-        copy="We will tell you whether a diagnostic, a build, or a partner workstream is the right next step."
-        buttonLabel="Request a fit call"
+        title="Tell us the business challenge."
+        copy="We will tell you whether Havilah Flow, a data engagement, a workflow, or a partner workstream is the right next step."
+        buttonLabel="Discuss a business challenge"
       />
     </>
   );

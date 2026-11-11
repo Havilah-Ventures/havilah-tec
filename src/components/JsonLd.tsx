@@ -16,13 +16,11 @@ export function JsonLd() {
     },
     areaServed: "US",
     serviceType: [
+      "Havilah Flow revenue intelligence",
       "Data engineering and pipelines",
-      "dbt, SQL and transformation",
-      "Cloud data platforms",
-      "Analytics architecture and BI",
-      "AI-ready data",
+      "Snowflake, dbt and AWS",
       "Contested metric diagnostic",
-      "Data integrity, quality and governance",
+      "AI automation and systems integration",
       "Partner and subcontract delivery",
     ],
   };

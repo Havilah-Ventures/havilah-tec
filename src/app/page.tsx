@@ -3,7 +3,6 @@ import { CtaBand } from "@/components/CtaBand";
 import { FadeIn } from "@/components/FadeIn";
 import { HomeHero } from "@/components/HomeHero";
 import { ServiceTile } from "@/components/ServiceTile";
-import { StackStrip } from "@/components/StackStrip";
 import {
   engagementStart,
   proofPoints,
@@ -12,11 +11,14 @@ import {
 } from "@/lib/site";
 import { situations } from "@/lib/situations";
 
+const homeSituations = ["unbilled-work", "two-revenues", "manual-handoff"]
+  .map((id) => situations.find((item) => item.id === id))
+  .filter((item): item is (typeof situations)[number] => Boolean(item));
+
 export default function HomePage() {
   return (
     <>
       <HomeHero />
-      <StackStrip />
 
       <section className="border-b border-white/10">
         <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
@@ -25,7 +27,7 @@ export default function HomePage() {
               What we do
             </p>
             <h2 className="mt-4 font-display text-3xl text-white sm:text-4xl">
-              Four engagements. One trusted number.
+              Three lines. One company.
             </h2>
           </FadeIn>
           <div className="mt-12 grid gap-4 sm:grid-cols-2">
@@ -40,22 +42,38 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              A typical situation
+              Typical situations
             </p>
             <h2 className="mt-4 max-w-3xl font-display text-3xl text-white">
-              {situations[0].title}
+              One problem from each line
             </h2>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-secondary">
-              {situations[0].challenge}
-            </p>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-secondary">
-              {situations[0].response}
-            </p>
+          </FadeIn>
+          <div className="mt-10 grid gap-4 lg:grid-cols-3">
+            {homeSituations.map((item, index) => (
+              <FadeIn key={item.id} delay={index * 0.05}>
+                <Link
+                  href={item.href}
+                  className="block h-full rounded-sm border border-white/10 p-6 transition-colors hover:border-gold/30"
+                >
+                  <p className="text-xs uppercase tracking-[0.24em] text-gold">
+                    {item.service}
+                  </p>
+                  <h3 className="mt-3 font-display text-xl text-white">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-7 text-secondary">
+                    {item.situation}
+                  </p>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+          <FadeIn>
             <Link
               href="/case-studies"
-              className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
+              className="mt-8 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
             >
-              See all five situations
+              See all situations
             </Link>
           </FadeIn>
         </div>
@@ -118,15 +136,36 @@ export default function HomePage() {
               Who we serve
             </p>
           </FadeIn>
-          <div className="mt-10 grid gap-6 lg:grid-cols-2">
+          <div className="mt-10 grid gap-6 lg:grid-cols-3">
+            <article className="rounded-sm border border-white/10 p-8">
+              <h2 className="font-display text-2xl text-white">
+                For service businesses
+              </h2>
+              <p className="mt-4 text-base leading-8 text-secondary">
+                Owners who need to see unpaid invoices, completed work that
+                has not been billed, and which accounts need a follow-up.
+              </p>
+              <Link
+                href={servicePath("havilah-flow")}
+                className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
+              >
+                Havilah Flow
+              </Link>
+            </article>
             <article className="rounded-sm border border-white/10 p-8">
               <h2 className="font-display text-2xl text-white">
                 For finance and data leaders
               </h2>
               <p className="mt-4 text-base leading-8 text-secondary">
-                CFOs, controllers, and heads of data who need reporting they
-                can defend.
+                CFOs, controllers, and heads of data who need a number they
+                can defend, on Snowflake, dbt, and AWS.
               </p>
+              <Link
+                href={servicePath("data-engineering")}
+                className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
+              >
+                Data engineering
+              </Link>
             </article>
             <article className="rounded-sm border border-white/10 p-8">
               <h2 className="font-display text-2xl text-white">
@@ -148,9 +187,9 @@ export default function HomePage() {
       </section>
 
       <CtaBand
-        title="Tell us the workstream."
-        copy="Pipelines, dbt, Snowflake, AWS, analytics, governance, or a partner engagement. We will scope it in writing."
-        buttonLabel="Request a fit call"
+        title="Tell us the business challenge."
+        copy="Unpaid invoices and unbilled work, a number you cannot defend, or a workflow someone repeats by hand. We will say which line fits."
+        buttonLabel="Discuss a business challenge"
       />
     </>
   );

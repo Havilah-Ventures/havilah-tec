@@ -13,7 +13,7 @@ import {
 export const metadata = createPageMetadata({
   title: "How we work",
   description:
-    "How Havilah Technologies LLC engages: discovery call, written SOW, delivery in your warehouse and git. Assess → Design → Deliver → Govern.",
+    "How Havilah Technologies LLC engages: a conversation, a written scope for professional services, and Havilah Flow as a pilot conversation about an authorized sample.",
   path: "/approach",
 });
 
@@ -23,7 +23,7 @@ export default function ApproachPage() {
       <PageHero
         eyebrow="How we work"
         title="Assess, design, deliver, govern"
-        description="Every engagement is a named workstream under a written SOW. We work in your warehouse and your git. We do not take unscoped seats."
+        description="Professional services are a named workstream under a written statement of work, in your environment. Havilah Flow starts as a conversation about an authorized sample."
       />
 
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
@@ -128,7 +128,7 @@ export default function ApproachPage() {
               <li>The workstream and the outcome.</li>
               <li>Named owners on both sides.</li>
               <li>Acceptance criteria.</li>
-              <li>The environment: your warehouse and your git.</li>
+              <li>The environment: your warehouse and git for data work, or the systems you already run for a workflow.</li>
               <li>A single fee for that scope.</li>
             </ul>
           </FadeIn>
@@ -165,8 +165,10 @@ export default function ApproachPage() {
                 What access do you need?
               </dt>
               <dd className="mt-2 text-sm leading-7 text-secondary">
-                The warehouse, the repository, and the two artifacts when the
-                work is a disputed metric. Access stays inside your boundary.
+                The warehouse and repository when the work is data. The two
+                artifacts when the work is a disputed metric. Written
+                authorization when the work is a Havilah Flow sample. Access
+                stays inside your boundary.
               </dd>
             </div>
             <div>
@@ -174,8 +176,10 @@ export default function ApproachPage() {
                 Where does the data go?
               </dt>
               <dd className="mt-2 text-sm leading-7 text-secondary">
-                It stays in your cloud and your git. We do not take a copy of
-                production home.
+                Data stays in your cloud and your git. A Havilah Flow sample
+                is used only with written authorization, and only for the
+                fields the review needs. We do not take a copy of production
+                home.
               </dd>
             </div>
             <div>
@@ -194,7 +198,7 @@ export default function ApproachPage() {
       <CtaBand
         title="Tell us the workstream."
         copy="Thirty minutes is enough to say whether it is a fit."
-        buttonLabel="Request a fit call"
+        buttonLabel="Discuss a business challenge"
       />
     </>
   );

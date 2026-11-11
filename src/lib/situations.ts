@@ -1,5 +1,17 @@
 export const situations = [
   {
+    id: "unbilled-work",
+    service: "Havilah Flow",
+    href: "/services/havilah-flow",
+    title: "The job is done, and the invoice never went out",
+    situation:
+      "A crew marks the job complete in the field-service app. The accounting system has no invoice for it. Overdue accounts are tracked in a spreadsheet, or in the head of the one person who chases payments.",
+    challenge:
+      "Nobody has a single list of what was earned, what was billed, and what is still unpaid. Completed work slips through between two systems. Reminders go out late, or not at all, because following up depends on someone remembering.",
+    response:
+      "The pilot starts with a conversation about how invoices and completed work are tracked today. With written authorization, it looks at a sample and labels each finding confirmed, suspected, or needing verification. A person approves any reminder before it is sent.",
+  },
+  {
     id: "two-revenues",
     service: "Contested Metric Diagnostic",
     href: "/services/diagnostic",
@@ -13,8 +25,8 @@ export const situations = [
   },
   {
     id: "feed-at-close",
-    service: "Data Engineering & Cloud Platforms",
-    href: "/services/platforms",
+    service: "Data Engineering & Intelligence",
+    href: "/services/data-engineering",
     title: "The warehouse is not ready when close starts",
     situation:
       "ERP, CRM, files, or an API are supposed to land in Snowflake or AWS before finance starts close. Some days the file is late, a delete never arrives, or the job fails quietly.",
@@ -25,8 +37,8 @@ export const situations = [
   },
   {
     id: "one-metric-layer",
-    service: "Analytics & AI-Ready Data",
-    href: "/services/analytics",
+    service: "Data Engineering & Intelligence",
+    href: "/services/data-engineering",
     title: "The report and the copilot do not share a number",
     situation:
       "Tableau or Power BI shows one revenue. A workbook shows another. A copilot or internal agent answers a leader’s question with a third figure, confidently.",
@@ -37,8 +49,8 @@ export const situations = [
   },
   {
     id: "audit-path",
-    service: "Governance & Data Quality",
-    href: "/services/governance",
+    service: "Data Engineering & Intelligence",
+    href: "/services/data-engineering",
     title: "An auditor asks where the number came from",
     situation:
       "Close is filed from the warehouse. An internal audit, a regulated pack, or a new controller asks for the path from source to the figure. The answer is a diagram in a wiki and a thread in chat.",
@@ -46,6 +58,18 @@ export const situations = [
       "Tests exist and nobody owns the threshold. Lineage is stale. Exceptions were decided in Slack and not written down. The number may be right, and the organization still cannot show it.",
     response:
       "The engagement puts reconciliation, tests, and a named owner on the paths that land in close. Lineage is something an engineer or an auditor can follow. The exception path is written down. The client keeps the evidence after we leave.",
+  },
+  {
+    id: "manual-handoff",
+    service: "AI Automation & Digital Solutions",
+    href: "/services/ai-automation",
+    title: "Someone re-keys the same record every day",
+    situation:
+      "An order, an intake form, or a status update arrives in one system and has to be typed into another. One person does it by hand, every day, and the work stops when that person is out.",
+    challenge:
+      "Copying by hand introduces errors nobody catches until a customer or a report does. Buying another tool would only add a third place where the record lives. The team wants the step automated and still wants control over what changes.",
+    response:
+      "The engagement automates that one named workflow between the systems already in use. A person approves any step that changes a record. The workflow is documented so the team can run it, adjust it, or switch it off.",
   },
   {
     id: "named-workstream",

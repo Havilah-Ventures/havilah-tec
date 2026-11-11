@@ -9,23 +9,38 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
       {
+        source: "/services/platforms",
+        destination: "/services/data-engineering",
+        permanent: true,
+      },
+      {
+        source: "/services/analytics",
+        destination: "/services/data-engineering",
+        permanent: true,
+      },
+      {
+        source: "/services/governance",
+        destination: "/services/data-engineering",
+        permanent: true,
+      },
+      {
         source: "/services/engineering",
-        destination: "/services/platforms",
+        destination: "/services/data-engineering",
         permanent: true,
       },
       {
         source: "/services/dbt",
-        destination: "/services/platforms",
+        destination: "/services/data-engineering",
         permanent: true,
       },
       {
         source: "/services/cloud",
-        destination: "/services/platforms",
+        destination: "/services/data-engineering",
         permanent: true,
       },
       {
         source: "/services/ai",
-        destination: "/services/analytics",
+        destination: "/services/data-engineering",
         permanent: true,
       },
     ];

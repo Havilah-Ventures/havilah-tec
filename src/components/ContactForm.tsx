@@ -3,11 +3,47 @@
 import { FormEvent, useState } from "react";
 import { inquiryTypes, siteConfig } from "@/lib/site";
 
-export function ContactForm() {
+const dataWorkstreams = [
+  "Data Engineering & Intelligence",
+  "Contested Metric Diagnostic",
+];
+
+const defaultPlaceholders = {
+  deadline: "Close, audit, board, migration…",
+  systems: "Snowflake, dbt, QuickBooks, the system the workflow lives in…",
+  message: "What you need delivered, current systems, and any constraints.",
+};
+
+const placeholdersByWorkstream: Record<
+  string,
+  Partial<typeof defaultPlaceholders>
+> = {
+  "Havilah Flow": {
+    deadline: "Month-end, a cash crunch, a slow season…",
+    systems: "Jobber, ServiceTitan, QuickBooks…",
+    message: "Where unpaid invoices or unbilled jobs slip through today.",
+  },
+  "AI Automation & Digital Solutions": {
+    systems: "The system the workflow lives in…",
+    message: "The workflow, who does it by hand, and how often.",
+  },
+};
+
+export function ContactForm({
+  initialWorkstream = "",
+}: {
+  initialWorkstream?: string;
+}) {
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
   const [error, setError] = useState("");
+  const [workstream, setWorkstream] = useState(initialWorkstream);
+  const isData = dataWorkstreams.includes(workstream);
+  const placeholders = {
+    ...defaultPlaceholders,
+    ...placeholdersByWorkstream[workstream],
+  };
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -48,6 +84,7 @@ export function ContactForm() {
       }
 
       form.reset();
+      setWorkstream(initialWorkstream);
       setStatus("sent");
     } catch {
       setStatus("error");
@@ -120,7 +157,7 @@ export function ContactForm() {
             id="role"
             name="role"
             type="text"
-            placeholder="Head of Data, Controller, program manager…"
+            placeholder="Owner, controller, head of data…"
             className={fieldClass}
           />
         </div>
@@ -134,7 +171,8 @@ export function ContactForm() {
           id="workstream"
           name="workstream"
           required
-          defaultValue=""
+          value={workstream}
+          onChange={(event) => setWorkstream(event.target.value)}
           className={fieldClass}
         >
           <option value="" disabled>
@@ -148,34 +186,38 @@ export function ContactForm() {
         </select>
       </div>
 
-      <div>
-        <label htmlFor="metric" className="block text-sm text-secondary">
-          Which metric is being disputed{" "}
-          <span className="text-secondary/60">(optional)</span>
-        </label>
-        <input
-          id="metric"
-          name="metric"
-          type="text"
-          placeholder="Revenue, bookings, headcount…"
-          className={fieldClass}
-        />
-      </div>
-
-      <div className="grid gap-6 sm:grid-cols-2">
+      {isData ? (
         <div>
-          <label htmlFor="sources" className="block text-sm text-secondary">
-            Which two sources or reports disagree{" "}
+          <label htmlFor="metric" className="block text-sm text-secondary">
+            Which metric is being disputed{" "}
             <span className="text-secondary/60">(optional)</span>
           </label>
           <input
-            id="sources"
-            name="sources"
+            id="metric"
+            name="metric"
             type="text"
-            placeholder="ERP and the board pack, warehouse and Sales…"
+            placeholder="Revenue, bookings, headcount…"
             className={fieldClass}
           />
         </div>
+      ) : null}
+
+      <div className={isData ? "grid gap-6 sm:grid-cols-2" : undefined}>
+        {isData ? (
+          <div>
+            <label htmlFor="sources" className="block text-sm text-secondary">
+              Which two sources or reports disagree{" "}
+              <span className="text-secondary/60">(optional)</span>
+            </label>
+            <input
+              id="sources"
+              name="sources"
+              type="text"
+              placeholder="ERP and the board pack, warehouse and Sales…"
+              className={fieldClass}
+            />
+          </div>
+        ) : null}
         <div>
           <label htmlFor="deadline" className="block text-sm text-secondary">
             Decision or deadline{" "}
@@ -185,7 +227,7 @@ export function ContactForm() {
             id="deadline"
             name="deadline"
             type="text"
-            placeholder="Close, audit, board, migration…"
+            placeholder={placeholders.deadline}
             className={fieldClass}
           />
         </div>
@@ -200,7 +242,7 @@ export function ContactForm() {
           id="systems"
           name="systems"
           type="text"
-          placeholder="Snowflake, dbt, AWS, Tableau…"
+          placeholder={placeholders.systems}
           className={fieldClass}
         />
       </div>
@@ -214,7 +256,7 @@ export function ContactForm() {
           name="message"
           rows={6}
           required
-          placeholder="What you need delivered, current systems, and any constraints."
+          placeholder={placeholders.message}
           className={`${fieldClass} resize-y`}
         />
       </div>

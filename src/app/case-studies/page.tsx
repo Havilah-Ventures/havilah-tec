@@ -8,7 +8,7 @@ import { situations } from "@/lib/situations";
 export const metadata = createPageMetadata({
   title: "Case studies",
   description:
-    "Real situations Havilah Technologies LLC is hired into: two official numbers, a warehouse that misses close, a copilot quoting an uncertified metric, and an audit that asks where the figure came from.",
+    "Illustrative situations across Havilah Flow, data engineering, and automation: completed work never billed, two official numbers, a warehouse that misses close, and a record re-keyed by hand.",
   path: "/case-studies",
 });
 
@@ -18,7 +18,7 @@ export default function CaseStudiesPage() {
       <PageHero
         eyebrow="Case studies"
         title="The situations, and how the work meets them"
-        description="These are the problems clients bring. Each one names the challenge and the engagement that addresses it. Client names and measured results are added only when that client permits them."
+        description="These are illustrative situations, not client results. Each one names the challenge and the work that addresses it. Client names and measured results are added only when a client permits them."
       />
 
       <section className="mx-auto max-w-6xl space-y-8 px-6 py-20 lg:px-8 lg:py-24">
@@ -70,8 +70,8 @@ export default function CaseStudiesPage() {
 
       <CtaBand
         title="If one of these is live, send it."
-        copy="Name the metric or the workstream, and the decision that is waiting on it."
-        buttonLabel="Request a fit call"
+        copy="Unpaid invoices, a number nobody will defend, or a workflow someone repeats by hand. Name it, and the decision waiting on it."
+        buttonLabel="Discuss a business challenge"
       />
     </>
   );

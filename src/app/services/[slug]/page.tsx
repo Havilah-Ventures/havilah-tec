@@ -9,8 +9,8 @@ import {
   diagnosticHops,
   diagnosticOutputs,
   getService,
+  kindLabel,
   servicePath,
-  siteConfig,
   stack,
 } from "@/lib/site";
 
@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: PageProps) {
     return { title: "Service" };
   }
   return createPageMetadata({
-    title: service.name,
+    title: service.seoTitle ?? service.name,
     description: service.lead,
     path: servicePath(service.id),
   });
@@ -46,18 +46,71 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     .map((id) => getService(id))
     .filter((line): line is NonNullable<typeof line> => Boolean(line));
   const isDiagnostic = service.id === "diagnostic";
+  const isFlow = service.id === "havilah-flow";
+  const isData = service.id === "data-engineering";
+  const showStack =
+    service.id === "data-engineering" ||
+    service.id === "diagnostic" ||
+    service.id === "partnership";
+  const eyebrow =
+    service.id === "partnership"
+      ? "Partners"
+      : service.id === "diagnostic"
+        ? "Diagnostic"
+        : kindLabel(service.kind);
+  const contactHref = `/contact?workstream=${encodeURIComponent(service.inquiryType)}`;
+  const headings = isFlow
+    ? {
+        help: "What Flow does",
+        when: "When a pilot fits",
+        work: "How a pilot runs",
+        outcomes: "What you see each morning",
+        scope: "What Flow covers",
+        related: "Other Havilah lines",
+      }
+    : {
+        help: "How we help",
+        when: "When this is the engagement",
+        work: "What an engagement looks like",
+        outcomes: "Deliverables",
+        scope: "In scope",
+        related: "Related services",
+      };
 
   return (
     <>
       <PageHero
-        eyebrow={service.id === "partnership" ? "Partners" : "Service"}
+        eyebrow={eyebrow}
         title={service.name}
         description={service.lead}
         cta={{
-          href: "/contact",
-          label: isDiagnostic ? "Start a diagnostic" : "Request a fit call",
+          href: contactHref,
+          label: service.ctaLabel,
         }}
       />
+
+      {isFlow ? (
+        <section className="border-b border-white/10 bg-navy-deep">
+          <div className="mx-auto grid max-w-6xl gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ["Outstanding", "Invoices still open in your records"],
+              ["Overdue", "Accounts past the due date"],
+              ["Unbilled work", "Completed work that may have no invoice"],
+              ["Follow-ups", "Items waiting on a person"],
+            ].map(([value, label]) => (
+              <div key={value} className="bg-navy-deep px-6 py-6">
+                <p className="font-display text-lg text-gold">{value}</p>
+                <p className="mt-2 text-sm leading-6 text-secondary">{label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mx-auto max-w-6xl px-6 py-4 text-xs leading-6 text-secondary lg:px-8">
+            A morning review covers these four facts. Any dollar amount in a
+            sketch is illustrative. Havilah Flow is an emerging pilot, not a
+            live installation.
+          </p>
+        </section>
+      ) : null}
 
       {isDiagnostic ? (
         <section className="border-b border-white/10 bg-navy-deep">
@@ -78,18 +131,20 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
-      <section className="border-b border-white/10 bg-navy-deep">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-6 py-5 lg:px-8">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-gold">
-            Stack
-          </p>
-          {stack.map((item) => (
-            <span key={item} className="text-sm text-secondary">
-              {item}
-            </span>
-          ))}
-        </div>
-      </section>
+      {showStack ? (
+        <section className="border-b border-white/10 bg-navy-deep">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-6 py-5 lg:px-8">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-gold">
+              Stack
+            </p>
+            {stack.map((item) => (
+              <span key={item} className="text-sm text-secondary">
+                {item}
+              </span>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
         <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
@@ -98,7 +153,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               The work
             </p>
             <h2 className="mt-4 font-display text-3xl text-white">
-              How we help
+              {headings.help}
             </h2>
             <div className="mt-6 space-y-5">
               {service.overview.map((paragraph) => (
@@ -113,14 +168,13 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           </FadeIn>
           <FadeIn delay={0.08}>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              When this is the engagement
+              {headings.when}
             </p>
             <p className="mt-4 text-base leading-8 text-secondary">
               {service.when}
             </p>
             <p className="mt-6 text-sm leading-7 text-secondary">
-              Contracted and invoiced by {siteConfig.legalName}. Delivery in
-              your warehouse and your git.
+              {service.deliveryNote}
             </p>
           </FadeIn>
         </div>
@@ -146,7 +200,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               Typical work
             </p>
             <h2 className="mt-4 font-display text-3xl text-white">
-              What an engagement looks like
+              {headings.work}
             </h2>
           </FadeIn>
           <ol className="mt-12 grid gap-6 sm:grid-cols-2">
@@ -176,7 +230,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               What you receive
             </p>
             <h2 className="mt-4 font-display text-3xl text-white">
-              Deliverables
+              {headings.outcomes}
             </h2>
             <ul className="mt-8 space-y-3">
               {service.outcomes.map((item) => (
@@ -195,7 +249,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               Capabilities
             </p>
             <h2 className="mt-4 font-display text-3xl text-white">
-              In scope
+              {headings.scope}
             </h2>
             <ul className="mt-8 space-y-3">
               {service.capabilities.map((item) => (
@@ -285,7 +339,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              Related services
+              {headings.related}
             </p>
           </FadeIn>
           <ul className="mt-8 grid gap-4 md:grid-cols-3">
@@ -306,10 +360,41 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </div>
       </section>
 
+      {isData ? (
+        <section className="border-t border-white/10">
+          <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
+            <FadeIn>
+              <p className="text-xs uppercase tracking-[0.28em] text-gold">
+                When two numbers disagree
+              </p>
+              <h2 className="mt-4 max-w-3xl font-display text-3xl text-white">
+                Start with the Contested Metric Diagnostic
+              </h2>
+              <p className="mt-4 max-w-3xl text-sm leading-7 text-secondary">
+                One metric, two artifacts, a written ruling, and evidence SQL
+                your team can re-run. The larger build follows only if you
+                want it.
+              </p>
+              <Link
+                href={servicePath("diagnostic")}
+                className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
+              >
+                Read the diagnostic
+              </Link>
+            </FadeIn>
+          </div>
+        </section>
+      ) : null}
+
       <CtaBand
-        title={`Discuss ${service.name}.`}
-        copy={`${service.name} is contracted under ${siteConfig.legalName}. Tell us the stack, the systems, and the outcome.`}
-        buttonLabel={isDiagnostic ? "Start a diagnostic" : "Request a fit call"}
+        title={isFlow ? "Request a conversation." : `Discuss ${service.name}.`}
+        copy={
+          isFlow
+            ? "Tell us how you track unpaid invoices and completed work that has not been billed. We will say whether a conversation is the right next step."
+            : service.deliveryNote
+        }
+        buttonLabel={service.ctaLabel}
+        href={contactHref}
       />
     </>
   );

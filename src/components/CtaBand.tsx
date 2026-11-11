@@ -5,12 +5,14 @@ type CtaBandProps = {
   title?: string;
   copy?: string;
   buttonLabel?: string;
+  href?: string;
 };
 
 export function CtaBand({
   title = "Tell us the workstream.",
-  copy = "Pipelines, dbt, Snowflake, AWS, analytics, governance, or a named partner workstream. We scope it under Havilah Technologies LLC.",
+  copy = "Unpaid invoices, a number you cannot defend, or a workflow someone repeats by hand. We scope it under Havilah Technologies LLC.",
   buttonLabel = "Start an engagement",
+  href = "/contact",
 }: CtaBandProps) {
   return (
     <section className="border-t border-white/10 bg-white/[0.02]">
@@ -23,7 +25,7 @@ export function CtaBand({
               </p>
               <p className="mt-3 text-sm leading-7 text-secondary">{copy}</p>
             </div>
-            <Button href="/contact">{buttonLabel}</Button>
+            <Button href={href}>{buttonLabel}</Button>
           </div>
         </FadeIn>
       </div>
