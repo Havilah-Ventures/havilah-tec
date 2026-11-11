@@ -14,6 +14,12 @@ export function JsonLd() {
       name: siteConfig.parentLegalName,
       url: siteConfig.parentUrl,
     },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: siteConfig.location.city,
+      addressRegion: siteConfig.location.region,
+      addressCountry: siteConfig.location.country,
+    },
     areaServed: "US",
     serviceType: [
       "Havilah Flow revenue intelligence",

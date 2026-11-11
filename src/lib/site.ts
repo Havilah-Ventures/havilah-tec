@@ -17,6 +17,7 @@ export const siteConfig = {
   url: "https://www.havilahtec.com",
   description:
     "Havilah Technologies helps businesses trust their data, connect the systems they already run, and see revenue those systems are missing. Discuss a business challenge.",
+  location: { city: "Chandler", region: "AZ", regionName: "Arizona", country: "US" },
 };
 
 export const primaryNav = [

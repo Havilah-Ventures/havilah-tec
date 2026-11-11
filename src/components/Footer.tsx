@@ -72,6 +72,9 @@ export function Footer() {
             >
               {siteConfig.email}
             </a>
+            <p className="mt-3 text-sm text-secondary">
+              {siteConfig.location.city}, {siteConfig.location.regionName}
+            </p>
             <a
               href={siteConfig.url}
               className="mt-3 block text-sm text-secondary transition-colors hover:text-white"

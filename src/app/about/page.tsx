@@ -10,7 +10,7 @@ const engagementSteps = [
   {
     name: "A conversation",
     detail:
-      "Name the challenge: unpaid invoices and unbilled work, two numbers that disagree, or a workflow someone repeats by hand. We say which line fits.",
+      "Thirty minutes on the problem, the systems involved, and the decision waiting on it. We say which line fits, or that none does.",
   },
   {
     name: "Written scope",
@@ -26,10 +26,6 @@ const engagementSteps = [
 
 const deliveryPrinciples = [
   {
-    title: "The situation",
-    copy: "We start with the problem you can name: money already earned and hard to see, two reports that do not share a number, or a step someone repeats by hand.",
-  },
-  {
     title: "The line that fits",
     copy: "Havilah Flow is the pilot for revenue a service business has already earned. Data engineering is the professional service when the number itself is the problem. Automation is the service when one workflow is the problem.",
   },
@@ -40,10 +36,6 @@ const deliveryPrinciples = [
   {
     title: "Engineering, after the problem is named",
     copy: "Pipelines, models, warehouse structure, and workflow connections come once the problem is known. The build serves that problem.",
-  },
-  {
-    title: "In your environment",
-    copy: "Data work lands in your warehouse and your git. Automation lands in the systems you already run. A Flow sample is used only with written authorization.",
   },
 ];
 
@@ -58,13 +50,7 @@ const capabilities = [
     name: "Data Engineering & Intelligence",
     href: "/services/data-engineering",
     detail:
-      "Pipelines, a metric layer, and governance on Snowflake, dbt, and AWS.",
-  },
-  {
-    name: "Contested Metric Diagnostic",
-    href: "/services/diagnostic",
-    detail:
-      "Start here when two official numbers disagree. One metric, a written ruling, and evidence SQL your team can re-run.",
+      "Pipelines, a metric layer, and governance on Snowflake, dbt, and AWS. When two official numbers disagree, the work starts with the Contested Metric Diagnostic.",
   },
   {
     name: "AI Automation & Digital Solutions",
@@ -88,7 +74,7 @@ export default function AboutPage() {
         eyebrow="About"
         title="Three lines. One firm."
         description={`${siteConfig.legalName} is a technology firm. We engineer data platforms, automate a named workflow, and are developing Havilah Flow so a service business can see revenue it has already earned.`}
-        cta={{ href: "/contact", label: "Send an inquiry" }}
+        cta={{ href: "/contact", label: "Discuss a business challenge" }}
       />
 
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
@@ -118,10 +104,40 @@ export default function AboutPage() {
               {siteConfig.parentName} company.
             </p>
           </div>
-          <div className="mt-10">
-            <Button href="/contact">Discuss a business challenge</Button>
-          </div>
         </FadeIn>
+      </section>
+
+      <section className="border-t border-white/10">
+        <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
+          <FadeIn>
+            <p className="text-xs uppercase tracking-[0.28em] text-gold">
+              Who you work with
+            </p>
+            <h2 className="mt-4 font-display text-3xl text-white sm:text-4xl">
+              Founder-led, senior engineering
+            </h2>
+            <p className="mt-3 text-sm uppercase tracking-[0.18em] text-secondary">
+              {siteConfig.location.city}, {siteConfig.location.regionName}
+            </p>
+            <div className="mt-6 max-w-3xl space-y-4 text-base leading-8 text-secondary">
+              <p>
+                {siteConfig.legalName} is led by a senior analytics engineer
+                working in Snowflake, dbt, SQL, and Python: pipelines and
+                metric layers that finance and operations can defend, and AI
+                applied to data operations with a person kept on the decision.
+              </p>
+              <p>
+                The person you speak with is the person who scopes the work.
+                Every engagement is contracted by {siteConfig.legalName} under
+                a written statement of work, and the people delivering it are
+                named in that statement.
+              </p>
+            </div>
+            <div className="mt-8">
+              <Button href="/contact">Discuss a business challenge</Button>
+            </div>
+          </FadeIn>
+        </div>
       </section>
 
       <section className="border-y border-white/10 bg-white/[0.02]">
@@ -180,7 +196,7 @@ export default function AboutPage() {
           <FadeIn delay={0.1}>
             <div className="rounded-sm border border-white/10 p-6 lg:p-8">
               <p className="text-xs uppercase tracking-[0.24em] text-gold">
-                Capabilities
+                The three lines
               </p>
               <ul className="mt-6 space-y-6">
                 {capabilities.map((item) => (
@@ -205,7 +221,7 @@ export default function AboutPage() {
       <CtaBand
         title="Tell us the business challenge."
         copy="Unpaid invoices, two numbers that disagree, or a workflow someone repeats by hand. We reply with whether a conversation is the right next step."
-        buttonLabel="Send an inquiry"
+        buttonLabel="Discuss a business challenge"
       />
     </>
   );
