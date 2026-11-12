@@ -83,7 +83,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              Why teams hire us
+              What you can expect
             </p>
           </FadeIn>
           <div className="mt-12 grid gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
@@ -169,20 +169,30 @@ export default function HomePage() {
             </article>
             <article className="rounded-sm border border-white/10 p-8">
               <h2 className="font-display text-2xl text-white">
-                For primes and delivery partners
+                For operations teams
               </h2>
               <p className="mt-4 text-base leading-8 text-secondary">
-                Program managers who need a Snowflake, dbt, or AWS specialist
-                on a defined workstream, inside your security boundary.
+                Teams where someone re-keys the same record between systems
+                every day.
               </p>
               <Link
-                href={servicePath("partnership")}
+                href={servicePath("ai-automation")}
                 className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
               >
-                Learn about partnering
+                AI automation
               </Link>
             </article>
           </div>
+          <p className="mt-8 text-sm leading-7 text-secondary">
+            Primes and delivery partners:{" "}
+            <Link
+              href={servicePath("partnership")}
+              className="text-gold transition-colors hover:text-white"
+            >
+              see how partnering works
+            </Link>
+            .
+          </p>
         </div>
       </section>
 

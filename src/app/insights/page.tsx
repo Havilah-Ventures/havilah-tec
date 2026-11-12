@@ -17,7 +17,7 @@ export default function InsightsPage() {
       <PageHero
         eyebrow="Insights"
         title="Notes on the number"
-        description="Short explanations of problems we see in the work. No client names and no invented results."
+        description="Short explanations of problems common in data work. No client names and no invented results."
       />
       <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
         <ul className="grid gap-6 md:grid-cols-3">

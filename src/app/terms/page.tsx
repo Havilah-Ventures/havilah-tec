@@ -141,8 +141,8 @@ export default function TermsOfUsePage() {
         <LegalSection title="10. Governing Law" index={10}>
           <p>
             These Terms shall be governed by and construed in accordance with
-            the laws of the State in which {siteConfig.legalName} is registered,
-            without regard to conflict of law principles.
+            the laws of the State of Arizona, without regard to conflict of
+            law principles.
           </p>
         </LegalSection>
 

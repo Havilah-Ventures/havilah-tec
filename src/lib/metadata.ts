@@ -32,10 +32,10 @@ export function createPageMetadata({
       locale: "en_US",
       images: [
         {
-          url: "/og/home.png",
+          url: "/og/havilah-technologies.png",
           width: 1200,
           height: 630,
-          alt: `${siteConfig.name} — ${siteConfig.tagline}`,
+          alt: `${siteConfig.name}: ${siteConfig.tagline} Data engineering, AI automation, and Havilah Flow.`,
         },
       ],
     },
@@ -43,7 +43,7 @@ export function createPageMetadata({
       card: "summary_large_image",
       title: fullTitle,
       description,
-      images: ["/og/home.png"],
+      images: ["/og/havilah-technologies.png"],
     },
   };
 }

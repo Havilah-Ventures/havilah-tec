@@ -13,7 +13,7 @@ import {
 export const metadata = createPageMetadata({
   title: "How we work",
   description:
-    "How Havilah Technologies LLC engages: a conversation, a written scope for professional services, and Havilah Flow as a pilot conversation about an authorized sample.",
+    "One discipline across Havilah Flow, data engineering, and AI automation: a conversation, a written scope for professional services, and work in your environment.",
   path: "/approach",
 });
 
@@ -22,7 +22,7 @@ export default function ApproachPage() {
     <>
       <PageHero
         eyebrow="How we work"
-        title="Assess, design, deliver, govern"
+        title="One discipline across three lines"
         description="Professional services are a named workstream under a written statement of work, in your environment. Havilah Flow starts as a conversation about an authorized sample."
       />
 
@@ -32,7 +32,7 @@ export default function ApproachPage() {
             How an engagement starts
           </p>
           <h2 className="mt-4 max-w-3xl font-display text-3xl text-white sm:text-4xl">
-            Fit call, written SOW, delivery in your environment
+            A conversation, a written scope, work in your environment
           </h2>
         </FadeIn>
         <ol className="mt-12 grid gap-6 md:grid-cols-3">
@@ -63,7 +63,7 @@ export default function ApproachPage() {
               Commercial shape
             </p>
             <h2 className="mt-4 font-display text-3xl text-white">
-              Written SOW. Named workstream.
+              How each line is engaged
             </h2>
             <div className="mt-8 space-y-6">
               {engagementModels.map((model) => (
@@ -87,7 +87,7 @@ export default function ApproachPage() {
               Stack
             </p>
             <h2 className="mt-4 font-display text-3xl text-white">
-              Snowflake, dbt, Python, SQL, AWS — used as engineering.
+              Data and integration tools
             </h2>
             <ul className="mt-8 flex flex-wrap gap-3">
               {craft.map((item) => (
@@ -124,6 +124,10 @@ export default function ApproachPage() {
             <h2 className="mt-4 font-display text-3xl text-white">
               What the SOW contains
             </h2>
+            <p className="mt-4 text-sm leading-7 text-secondary">
+              Professional services only. A Havilah Flow pilot starts with a
+              conversation, and any sample needs written authorization.
+            </p>
             <ul className="mt-6 space-y-3 text-sm leading-7 text-secondary">
               <li>The workstream and the outcome.</li>
               <li>Named owners on both sides.</li>
@@ -144,6 +148,7 @@ export default function ApproachPage() {
               <li>Tests and documentation.</li>
               <li>A runbook and named owners.</li>
               <li>The decision of what an agent may quote, when that is in scope.</li>
+              <li>For automation: the workflow documentation and a way to switch it off.</li>
             </ul>
           </FadeIn>
         </div>
@@ -196,8 +201,8 @@ export default function ApproachPage() {
       </section>
 
       <CtaBand
-        title="Tell us the workstream."
-        copy="Thirty minutes is enough to say whether it is a fit."
+        title="Tell us the business challenge."
+        copy="Thirty minutes is enough to say which line fits, or that none does."
         buttonLabel="Discuss a business challenge"
       />
     </>

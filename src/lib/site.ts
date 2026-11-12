@@ -126,24 +126,14 @@ export const engagementModels = [
       "An emerging pilot for service businesses. A conversation about unpaid invoices and completed work that has not been billed, then an authorized sample if you want one.",
   },
   {
-    name: "Data engineering",
+    name: "Data Engineering & Intelligence",
     description:
-      "Pipelines, dbt, Snowflake or AWS, a metric layer, and governance, under a written statement of work in your warehouse and your git.",
+      "Pipelines, dbt, Snowflake or AWS, a metric layer, and governance, under a written statement of work in your warehouse and your git. When two official numbers disagree, it starts with the Contested Metric Diagnostic: one metric, two artifacts, about ten business days. Primes and delivery partners can contract the same work as a named subcontract workstream.",
   },
   {
-    name: "Contested Metric Diagnostic",
+    name: "AI Automation & Digital Solutions",
     description:
-      "When two official numbers disagree: one metric, two artifacts, about ten business days. Ruling, evidence SQL, ranked changes.",
-  },
-  {
-    name: "AI automation",
-    description:
-      "One named workflow on the applications you already use. A person approves the step that changes a record or sends a message.",
-  },
-  {
-    name: "Subcontract and teaming",
-    description:
-      "A prime hires a named data workstream. Havilah Technologies LLC is the contracting entity.",
+      "One named workflow on the applications you already use, under a written statement of work. A person approves the step that changes a record or sends a message.",
   },
 ];
 
@@ -158,27 +148,27 @@ export const inquiryTypes = [
 export const methodology = {
   headline: "Assess → Design → Deliver → Govern",
   summary:
-    "The same discipline whether we are standing up a pipeline, rebuilding dbt models, or governing a metric for close.",
+    "The same discipline whether the work is a Havilah Flow pilot, a data platform, or one automated workflow.",
   steps: [
     {
       name: "Assess",
       description:
-        "Evaluate current state — systems, grain, jobs, gaps, and risk — with findings leadership can act on.",
+        "The systems, the records, and the decision that depends on them. Findings are written so the business can act on them.",
     },
     {
       name: "Design",
       description:
-        "Target architecture, correction path, and success criteria aligned to the business decision the data must support.",
+        "The target path and the success criteria for that decision, agreed before anything is built.",
     },
     {
       name: "Deliver",
       description:
-        "Implement in their repo and warehouse: pipelines, models, tests, and documentation to specification.",
+        "Work happens in your environment: your warehouse and git, the systems you already run, or the records you authorize.",
     },
     {
       name: "Govern",
       description:
-        "Leave controls, monitoring, and ownership so the work holds at close and when an agent is pointed at the mart.",
+        "A named owner for what was delivered, and a person on any step that changes a record or sends a message.",
     },
   ],
 };
@@ -195,9 +185,9 @@ export const diagnosticHops = [
 export const diagnosticOutputs = [
   "Ruling: which number is valid for which decision (close vs ops vs compensation).",
   "Break class: source, grain, mapping, late CDC, report logic, or a copied business rule.",
-  "Evidence SQL — parameterized, they re-run.",
-  "Ranked changes, hours, and owner.",
-  "Do-not-touch list: bonus formulas, GL maps, CDC delete filters unless a named human approves.",
+  "Evidence SQL your team can re-run.",
+  "Ranked changes, with an estimate and an owner for each.",
+  "Do-not-touch list: bonus formulas, GL maps, CDC delete filters unless a named person approves.",
 ];
 
 export const craft = [
@@ -208,6 +198,6 @@ export const craft = [
   "AWS",
   "CDC / ELT",
   "Orchestration",
-  "BI grain",
-  "AI-ready marts",
+  "BI on certified marts",
+  "Marts an AI tool can quote",
 ];

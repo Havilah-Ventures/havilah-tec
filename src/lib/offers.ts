@@ -92,7 +92,7 @@ export const serviceLines: ServiceLine[] = [
       {
         question: "Which businesses is it for?",
         answer:
-          "Service businesses that complete work, invoice for it, and then have to collect. The page is not limited to one trade.",
+          "Service businesses that complete work, invoice for it, and then have to collect. It is not limited to one trade.",
       },
       {
         question: "Does it replace our field-service or accounting software?",
@@ -205,7 +205,7 @@ export const serviceLines: ServiceLine[] = [
       "A person repeats the same step across systems every week, and that step has a name.",
     summary:
       "Automate one named business workflow and connect the applications you already use. A person approves any step that changes a record.",
-    lead: "Havilah Technologies automates a named business workflow and connects the applications the client already uses. A person approves the step that changes a record or sends a message.",
+    lead: "Havilah Technologies automates a named business workflow and connects the applications you already use. A person approves the step that changes a record or sends a message.",
     overview: [
       "The engagement is one workflow: what happens, how often, which systems, and what a person does by hand today. The deliverable is that path, with the exception a person still has to see.",
       "Work is a written statement of work in your environment, with a handoff and a named owner. Expansion beyond that workflow is a change order.",
@@ -409,7 +409,7 @@ export const partnerService: ServiceLine = {
   when: "A prime or partner has the client and needs a specialist workstream delivered under subcontract.",
   outcomes: [
     "A statement of work the program can file",
-    "Delivery in their repo and their cloud",
+    "Delivery in your repository and your cloud",
     "Documented handoff",
     "Named owners on your side",
   ],

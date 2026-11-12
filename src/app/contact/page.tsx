@@ -43,10 +43,11 @@ export default async function ContactPage({
                 </p>
                 <ol className="mt-4 space-y-4 text-sm leading-7 text-secondary">
                   <li>You name the challenge: unpaid invoices, a disputed metric, a workflow, or a partner workstream.</li>
-                  <li>We reply with a time for a thirty-minute fit call, or we say it is not a fit.</li>
+                  <li>We reply with a time for a thirty-minute call, or we say it is not a fit.</li>
                   <li>
-                    If it is a fit, you receive a written statement of work
-                    under {siteConfig.legalName}.
+                    If it is a fit: a written statement of work for a
+                    professional service, or a pilot conversation and a
+                    written authorization for Havilah Flow.
                   </li>
                 </ol>
                 <Link
@@ -62,7 +63,7 @@ export default async function ContactPage({
                   Contracting
                 </p>
                 <p className="mt-3 text-base leading-8 text-secondary">
-                  All engagements are contracted and invoiced by{" "}
+                  Professional services are contracted and invoiced by{" "}
                   {siteConfig.legalName}, a {siteConfig.parentName} company.
                 </p>
               </div>
