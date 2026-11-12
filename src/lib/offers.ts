@@ -22,12 +22,18 @@ export type ServiceLine = {
   /** Must match an entry in `inquiryTypes` so the contact form can preselect it. */
   inquiryType: string;
   deliveryNote: string;
+  /** Link-preview card for this page; the firm-wide card is used when omitted. */
+  socialImage?: { url: string; alt: string };
 };
 
 export const serviceLines: ServiceLine[] = [
   {
     id: "havilah-flow",
     inquiryType: "Havilah Flow",
+    socialImage: {
+      url: "/og/havilah-flow.png",
+      alt: "Havilah Flow, an emerging pilot: see unpaid invoices and unbilled work, using the software you already run.",
+    },
     name: "Havilah Flow",
     kind: "pilot",
     navHint: "Revenue intelligence",

@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: PageProps) {
     title: service.seoTitle ?? service.name,
     description: service.lead,
     path: servicePath(service.id),
+    image: service.socialImage,
   });
 }
 
