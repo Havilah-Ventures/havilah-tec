@@ -259,7 +259,7 @@ export function FlowDashboardPreview() {
         : undefined;
 
   return (
-    <section className="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
+    <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 lg:px-8 lg:pt-20">
       <div className="overflow-hidden rounded-sm border border-white/10 bg-navy-deep lg:grid lg:grid-cols-[220px_1fr]">
         <nav className="flex gap-2 overflow-x-auto border-b border-white/10 p-3 lg:flex-col lg:gap-1 lg:border-b-0 lg:border-r lg:p-4">
           <p className="hidden px-3 pb-2 text-[11px] uppercase tracking-[0.16em] text-gold lg:block">
@@ -321,10 +321,10 @@ export function FlowDashboardPreview() {
         </div>
       </div>
 
-      <p className="mt-6 text-center text-xs leading-6 text-secondary">
-        Havilah Flow is a concept preview by Havilah Technologies LLC. Every
-        company, invoice, and amount shown is fictional. This is not a live
-        financial system. Havilah Flow is an emerging pilot.
+      <p className="mt-8 border-t border-white/10 pt-6 text-sm leading-7 text-secondary">
+        A concept preview by Havilah Technologies LLC. Company names, invoices,
+        and amounts are fictional. No live system and no customer data are
+        connected on this page, and what is available depends on the pilot.
       </p>
 
       {modal && record ? (

@@ -118,32 +118,6 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
-      {isFlow ? (
-        <section className="border-b border-white/10">
-          <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
-            <FadeIn>
-              <p className="text-xs uppercase tracking-[0.28em] text-gold">
-                Alongside the software you already run
-              </p>
-              <h2 className="mt-4 max-w-3xl font-display text-3xl text-white">
-                See how a pilot is designed to work
-              </h2>
-              <p className="mt-4 max-w-3xl text-sm leading-7 text-secondary">
-                A clickable sample of the morning review, collections, and
-                unbilled work. It is a concept of the intended workflow, not a
-                live connection.
-              </p>
-              <Link
-                href="/flow/how-it-works"
-                className="mt-6 inline-flex text-sm uppercase tracking-[0.18em] text-gold transition-colors hover:text-white"
-              >
-                See how it works
-              </Link>
-            </FadeIn>
-          </div>
-        </section>
-      ) : null}
-
       {isDiagnostic ? (
         <section className="border-b border-white/10 bg-navy-deep">
           <div className="mx-auto grid max-w-6xl gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-5">

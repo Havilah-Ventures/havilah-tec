@@ -25,13 +25,6 @@ export default function FlowHowItWorksPage() {
 
       <FlowDashboardPreview />
 
-      <p className="mx-auto max-w-6xl px-6 pb-16 text-xs leading-6 text-secondary lg:px-8">
-        A concept of the intended workflow. Capabilities, connections, and
-        availability depend on validation and the pilot scope. No live system
-        and no customer data are connected on this page. Havilah Flow is an
-        emerging pilot.
-      </p>
-
       <CtaBand
         title="Request a conversation."
         copy="Tell us how you track unpaid invoices and completed work that has not been billed. We will say whether a conversation is the right next step."
