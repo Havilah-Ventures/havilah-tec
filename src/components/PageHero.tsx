@@ -1,14 +1,23 @@
 import { FadeIn } from "./FadeIn";
 import { Button } from "./Button";
 
+type HeroAction = { href: string; label: string };
+
 type PageHeroProps = {
   eyebrow?: string;
   title: string;
   description: string;
-  cta?: { href: string; label: string };
+  cta?: HeroAction;
+  secondaryCta?: HeroAction;
 };
 
-export function PageHero({ eyebrow, title, description, cta }: PageHeroProps) {
+export function PageHero({
+  eyebrow,
+  title,
+  description,
+  cta,
+  secondaryCta,
+}: PageHeroProps) {
   return (
     <section className="relative overflow-hidden border-b border-white/10 bg-navy">
       <div
@@ -32,9 +41,14 @@ export function PageHero({ eyebrow, title, description, cta }: PageHeroProps) {
           <p className="mt-6 max-w-2xl text-lg leading-8 text-secondary">
             {description}
           </p>
-          {cta ? (
-            <div className="mt-10">
-              <Button href={cta.href}>{cta.label}</Button>
+          {cta || secondaryCta ? (
+            <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
+              {cta ? <Button href={cta.href}>{cta.label}</Button> : null}
+              {secondaryCta ? (
+                <Button href={secondaryCta.href} variant="ghost">
+                  {secondaryCta.label}
+                </Button>
+              ) : null}
             </div>
           ) : null}
         </FadeIn>
