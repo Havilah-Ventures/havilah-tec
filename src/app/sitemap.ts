@@ -11,6 +11,7 @@ const staticPaths = [
   "/case-studies",
   "/insights",
   "/contact",
+  "/flow/how-it-works",
   "/privacy",
   "/terms",
 ];
