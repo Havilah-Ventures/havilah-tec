@@ -1,23 +1,20 @@
+import { Band, type BandTone } from "./Band";
 import { FadeIn } from "./FadeIn";
 import { methodology } from "@/lib/site";
 
 type MethodologySectionProps = {
   variant?: "default" | "compact";
+  tone?: BandTone;
 };
 
 export function MethodologySection({
   variant = "default",
+  tone = "ink",
 }: MethodologySectionProps) {
   const isCompact = variant === "compact";
 
   return (
-    <section
-      className={
-        isCompact
-          ? "border-b border-white/10 bg-white/[0.02]"
-          : "border-y border-white/10 bg-white/[0.02]"
-      }
-    >
+    <Band tone={tone}>
       <div
         className={`mx-auto max-w-6xl px-6 lg:px-8 ${
           isCompact ? "py-16 lg:py-20" : "py-20 lg:py-24"
@@ -75,6 +72,6 @@ export function MethodologySection({
           ))}
         </div>
       </div>
-    </section>
+    </Band>
   );
 }

@@ -46,6 +46,40 @@ body {
   outline-offset: 3px;
 }
 
+.surface-paper {
+  background: #f6f7fa;
+  color: #0b1220;
+}
+
+.surface-paper .text-white,
+.surface-paper .hover\:text-white:hover {
+  color: #0b1220;
+}
+
+.surface-paper .text-secondary,
+.surface-paper .text-white\/85 {
+  color: #3d4a61;
+}
+
+.surface-paper .text-gold {
+  color: #8a6a1f;
+}
+
+.surface-paper .bg-gold {
+  background-color: #8a6a1f;
+}
+
+.surface-paper .border-white\/10 {
+  border-color: #dde2ec;
+}
+
+.surface-paper .border-white\/15 {
+  border-color: #c9cfdb;
+}
+
+.surface-paper .rounded-sm.border {
+  background-color: #ffffff;
+}
 .skip-link {
   position: absolute;
   left: 1rem;

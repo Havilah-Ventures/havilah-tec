@@ -1,3 +1,4 @@
+import { Band } from "@/components/Band";
 import { CtaBand } from "@/components/CtaBand";
 import { FadeIn } from "@/components/FadeIn";
 import { MethodologySection } from "@/components/MethodologySection";
@@ -26,96 +27,100 @@ export default function ApproachPage() {
         description="Professional services are a named workstream under a written statement of work, in your environment. Havilah Flow starts as a conversation about an authorized sample."
       />
 
-      <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-        <FadeIn>
-          <p className="text-xs uppercase tracking-[0.28em] text-gold">
-            How an engagement starts
-          </p>
-          <h2 className="mt-4 max-w-3xl font-display text-3xl text-white sm:text-4xl">
-            A conversation, a written scope, work in your environment
-          </h2>
-        </FadeIn>
-        <ol className="mt-12 grid gap-6 md:grid-cols-3">
-          {engagementStart.map((step, index) => (
-            <FadeIn key={step.name} delay={index * 0.07}>
-              <li className="h-full rounded-sm border border-white/10 p-6">
-                <p className="text-xs uppercase tracking-[0.24em] text-gold">
-                  {String(index + 1).padStart(2, "0")}
-                </p>
-                <h3 className="mt-3 font-display text-xl text-white">
-                  {step.name}
-                </h3>
-                <p className="mt-4 text-sm leading-7 text-secondary">
-                  {step.detail}
-                </p>
-              </li>
-            </FadeIn>
-          ))}
-        </ol>
-      </section>
+      <Band tone="paper">
+        <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
+          <FadeIn>
+            <p className="text-xs uppercase tracking-[0.28em] text-gold">
+              How an engagement starts
+            </p>
+            <h2 className="mt-4 max-w-3xl font-display text-3xl text-white sm:text-4xl">
+              A conversation, a written scope, work in your environment
+            </h2>
+          </FadeIn>
+          <ol className="mt-12 grid gap-6 md:grid-cols-3">
+            {engagementStart.map((step, index) => (
+              <FadeIn key={step.name} delay={index * 0.07}>
+                <li className="h-full rounded-sm border border-white/10 p-6">
+                  <p className="text-xs uppercase tracking-[0.24em] text-gold">
+                    {String(index + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mt-3 font-display text-xl text-white">
+                    {step.name}
+                  </h3>
+                  <p className="mt-4 text-sm leading-7 text-secondary">
+                    {step.detail}
+                  </p>
+                </li>
+              </FadeIn>
+            ))}
+          </ol>
+        </div>
+      </Band>
 
       <MethodologySection />
 
-      <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-2">
-          <FadeIn>
-            <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              Commercial shape
-            </p>
-            <h2 className="mt-4 font-display text-3xl text-white">
-              How each line is engaged
-            </h2>
-            <div className="mt-8 space-y-6">
-              {engagementModels.map((model) => (
-                <article
-                  key={model.name}
-                  className="border-b border-white/10 pb-6 last:border-b-0"
-                >
-                  <h3 className="font-display text-lg text-white">
-                    {model.name}
-                  </h3>
-                  <p className="mt-2 text-sm leading-7 text-secondary">
-                    {model.description}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </FadeIn>
+      <Band tone="paper">
+        <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-2">
+            <FadeIn>
+              <p className="text-xs uppercase tracking-[0.28em] text-gold">
+                Commercial shape
+              </p>
+              <h2 className="mt-4 font-display text-3xl text-white">
+                How each line is engaged
+              </h2>
+              <div className="mt-8 space-y-6">
+                {engagementModels.map((model) => (
+                  <article
+                    key={model.name}
+                    className="border-b border-white/10 pb-6 last:border-b-0"
+                  >
+                    <h3 className="font-display text-lg text-white">
+                      {model.name}
+                    </h3>
+                    <p className="mt-2 text-sm leading-7 text-secondary">
+                      {model.description}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </FadeIn>
 
-          <FadeIn delay={0.1}>
-            <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              Stack
-            </p>
-            <h2 className="mt-4 font-display text-3xl text-white">
-              Data and integration tools
-            </h2>
-            <ul className="mt-8 flex flex-wrap gap-3">
-              {craft.map((item) => (
-                <li
-                  key={item}
-                  className="rounded-full border border-white/10 px-4 py-2 text-sm text-secondary"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <div className="mt-10 space-y-6">
-              {deliveryPosture.map((item) => (
-                <article key={item.title}>
-                  <h3 className="font-display text-lg text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-7 text-secondary">
-                    {item.copy}
-                  </p>
-                </article>
-              ))}
-            </div>
-          </FadeIn>
+            <FadeIn delay={0.1}>
+              <p className="text-xs uppercase tracking-[0.28em] text-gold">
+                Stack
+              </p>
+              <h2 className="mt-4 font-display text-3xl text-white">
+                Data and integration tools
+              </h2>
+              <ul className="mt-8 flex flex-wrap gap-3">
+                {craft.map((item) => (
+                  <li
+                    key={item}
+                    className="rounded-full border border-white/10 px-4 py-2 text-sm text-secondary"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-10 space-y-6">
+                {deliveryPosture.map((item) => (
+                  <article key={item.title}>
+                    <h3 className="font-display text-lg text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-7 text-secondary">
+                      {item.copy}
+                    </p>
+                  </article>
+                ))}
+              </div>
+            </FadeIn>
+          </div>
         </div>
-      </section>
+      </Band>
 
-      <section className="border-t border-white/10">
+      <Band tone="ink">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 py-20 lg:grid-cols-2 lg:px-8 lg:py-24">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -152,9 +157,9 @@ export default function ApproachPage() {
             </ul>
           </FadeIn>
         </div>
-      </section>
+      </Band>
 
-      <section className="border-t border-white/10 bg-white/[0.02]">
+      <Band tone="paper">
         <div className="mx-auto max-w-3xl px-6 py-20 lg:px-8 lg:py-24">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -198,7 +203,7 @@ export default function ApproachPage() {
             </div>
           </dl>
         </div>
-      </section>
+      </Band>
 
       <CtaBand
         title="Tell us the business challenge."

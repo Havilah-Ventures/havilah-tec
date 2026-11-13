@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/Button";
+import { Band } from "@/components/Band";
 import { CtaBand } from "@/components/CtaBand";
 import { FadeIn } from "@/components/FadeIn";
 import { PageHero } from "@/components/PageHero";
@@ -77,37 +78,39 @@ export default function AboutPage() {
         cta={{ href: "/contact", label: "Discuss a business challenge" }}
       />
 
-      <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-        <FadeIn>
-          <p className="text-xs uppercase tracking-[0.28em] text-gold">
-            The firm
-          </p>
-          <div className="mt-6 max-w-3xl space-y-4 text-base leading-8 text-secondary">
-            <p>
-              Service businesses, finance teams, and delivery partners come to
-              us with a problem they can name: money that has been earned and
-              is hard to see, a number two reports do not share, or a workflow
-              someone repeats by hand.
+      <Band tone="paper">
+        <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
+          <FadeIn>
+            <p className="text-xs uppercase tracking-[0.28em] text-gold">
+              The firm
             </p>
-            <p>
-              Havilah Flow is an emerging pilot for the first of those.
-              Data Engineering & Intelligence is the professional service for
-              Snowflake, dbt, and AWS, and it includes the Contested Metric
-              Diagnostic when two official numbers disagree. AI Automation
-              & Digital Solutions takes one named workflow and leaves a person
-              on the step that changes a record.
-            </p>
-            <p>
-              Professional services are contracted and invoiced by{" "}
-              {siteConfig.legalName}, in the client environment, under a
-              written statement of work. {siteConfig.legalName} is a{" "}
-              {siteConfig.parentName} company.
-            </p>
-          </div>
-        </FadeIn>
-      </section>
+            <div className="mt-6 max-w-3xl space-y-4 text-base leading-8 text-secondary">
+              <p>
+                Service businesses, finance teams, and delivery partners come to
+                us with a problem they can name: money that has been earned and
+                is hard to see, a number two reports do not share, or a workflow
+                someone repeats by hand.
+              </p>
+              <p>
+                Havilah Flow is an emerging pilot for the first of those.
+                Data Engineering & Intelligence is the professional service for
+                Snowflake, dbt, and AWS, and it includes the Contested Metric
+                Diagnostic when two official numbers disagree. AI Automation
+                & Digital Solutions takes one named workflow and leaves a person
+                on the step that changes a record.
+              </p>
+              <p>
+                Professional services are contracted and invoiced by{" "}
+                {siteConfig.legalName}, in the client environment, under a
+                written statement of work. {siteConfig.legalName} is a{" "}
+                {siteConfig.parentName} company.
+              </p>
+            </div>
+          </FadeIn>
+        </div>
+      </Band>
 
-      <section className="border-t border-white/10">
+      <Band tone="ink">
         <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -138,9 +141,9 @@ export default function AboutPage() {
             </div>
           </FadeIn>
         </div>
-      </section>
+      </Band>
 
-      <section className="border-y border-white/10 bg-white/[0.02]">
+      <Band tone="paper">
         <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -168,55 +171,57 @@ export default function AboutPage() {
             ))}
           </ol>
         </div>
-      </section>
+      </Band>
 
-      <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
-          <FadeIn>
-            <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              How we deliver
-            </p>
-            <h2 className="mt-4 font-display text-3xl text-white sm:text-4xl">
-              Understand the problem before we engineer it
-            </h2>
-            <ul className="mt-8 space-y-6">
-              {deliveryPrinciples.map((item) => (
-                <li key={item.title}>
-                  <h3 className="font-display text-lg text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-7 text-secondary">
-                    {item.copy}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <div className="rounded-sm border border-white/10 p-6 lg:p-8">
-              <p className="text-xs uppercase tracking-[0.24em] text-gold">
-                The three lines
+      <Band tone="ink">
+        <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
+            <FadeIn>
+              <p className="text-xs uppercase tracking-[0.28em] text-gold">
+                How we deliver
               </p>
-              <ul className="mt-6 space-y-6">
-                {capabilities.map((item) => (
-                  <li key={item.name}>
-                    <Link
-                      href={item.href}
-                      className="font-display text-lg text-white transition-colors hover:text-gold"
-                    >
-                      {item.name}
-                    </Link>
+              <h2 className="mt-4 font-display text-3xl text-white sm:text-4xl">
+                Understand the problem before we engineer it
+              </h2>
+              <ul className="mt-8 space-y-6">
+                {deliveryPrinciples.map((item) => (
+                  <li key={item.title}>
+                    <h3 className="font-display text-lg text-white">
+                      {item.title}
+                    </h3>
                     <p className="mt-2 text-sm leading-7 text-secondary">
-                      {item.detail}
+                      {item.copy}
                     </p>
                   </li>
                 ))}
               </ul>
-            </div>
-          </FadeIn>
+            </FadeIn>
+
+            <FadeIn delay={0.1}>
+              <div className="rounded-sm border border-white/10 p-6 lg:p-8">
+                <p className="text-xs uppercase tracking-[0.24em] text-gold">
+                  The three lines
+                </p>
+                <ul className="mt-6 space-y-6">
+                  {capabilities.map((item) => (
+                    <li key={item.name}>
+                      <Link
+                        href={item.href}
+                        className="font-display text-lg text-white transition-colors hover:text-gold"
+                      >
+                        {item.name}
+                      </Link>
+                      <p className="mt-2 text-sm leading-7 text-secondary">
+                        {item.detail}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+          </div>
         </div>
-      </section>
+      </Band>
 
       <CtaBand
         title="Tell us the business challenge."

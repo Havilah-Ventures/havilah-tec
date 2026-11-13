@@ -1,3 +1,4 @@
+import { Band } from "@/components/Band";
 import { CtaBand } from "@/components/CtaBand";
 import { FlowDashboardPreview } from "@/components/FlowDashboardPreview";
 import { PageHero } from "@/components/PageHero";
@@ -23,7 +24,9 @@ export default function FlowHowItWorksPage() {
         description="Havilah Flow is designed to work alongside the tools your team already uses. It does not replace your field-service, accounting, or payment systems."
       />
 
-      <FlowDashboardPreview />
+      <Band tone="paper">
+        <FlowDashboardPreview />
+      </Band>
 
       <CtaBand
         title="Request a conversation."

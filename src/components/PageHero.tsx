@@ -19,7 +19,7 @@ export function PageHero({
   secondaryCta,
 }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden border-b border-white/10 bg-navy">
+    <section className="relative overflow-hidden bg-[#070B14]">
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-50"
@@ -31,7 +31,7 @@ export function PageHero({
       <div className="relative mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-28">
         <FadeIn>
           {eyebrow ? (
-            <p className="text-xs uppercase tracking-[0.28em] text-gold">
+            <p className="text-xs uppercase tracking-[0.28em] text-[#E0BC6A]">
               {eyebrow}
             </p>
           ) : null}
@@ -43,7 +43,11 @@ export function PageHero({
           </p>
           {cta || secondaryCta ? (
             <div className="mt-10 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
-              {cta ? <Button href={cta.href}>{cta.label}</Button> : null}
+              {cta ? (
+                <Button href={cta.href} variant="solid">
+                  {cta.label}
+                </Button>
+              ) : null}
               {secondaryCta ? (
                 <Button href={secondaryCta.href} variant="ghost">
                   {secondaryCta.label}

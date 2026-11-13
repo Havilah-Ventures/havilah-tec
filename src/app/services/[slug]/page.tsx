@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import { Band, toneSequence } from "@/components/Band";
 import { CtaBand } from "@/components/CtaBand";
 import { FadeIn } from "@/components/FadeIn";
 import { PageHero } from "@/components/PageHero";
@@ -77,6 +78,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         scope: "In scope",
         related: "Related services",
       };
+  const tone = toneSequence();
 
   return (
     <>
@@ -96,7 +98,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       />
 
       {isFlow ? (
-        <section className="border-b border-white/10 bg-navy-deep">
+        <section className="border-t border-white/10 bg-[#070B14]">
           <div className="mx-auto grid max-w-6xl gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-4">
             {[
               ["Outstanding", "Invoices still open in your records"],
@@ -104,7 +106,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               ["Unbilled work", "Completed work that may have no invoice"],
               ["Follow-ups", "Items waiting on a person"],
             ].map(([value, label]) => (
-              <div key={value} className="bg-navy-deep px-6 py-6">
+              <div key={value} className="bg-[#070B14] px-6 py-6">
                 <p className="font-display text-lg text-gold">{value}</p>
                 <p className="mt-2 text-sm leading-6 text-secondary">{label}</p>
               </div>
@@ -119,7 +121,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       ) : null}
 
       {isDiagnostic ? (
-        <section className="border-b border-white/10 bg-navy-deep">
+        <section className="border-t border-white/10 bg-[#070B14]">
           <div className="mx-auto grid max-w-6xl gap-px bg-white/10 sm:grid-cols-2 lg:grid-cols-5">
             {[
               ["One metric", "The number both sides claim"],
@@ -128,7 +130,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               ["Written ruling", "Which number is valid for which decision"],
               ["Evidence SQL", "Queries your team can re-run"],
             ].map(([value, label]) => (
-              <div key={value} className="bg-navy-deep px-6 py-6">
+              <div key={value} className="bg-[#070B14] px-6 py-6">
                 <p className="font-display text-lg text-gold">{value}</p>
                 <p className="mt-2 text-sm leading-6 text-secondary">{label}</p>
               </div>
@@ -138,7 +140,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
       ) : null}
 
       {showStack ? (
-        <section className="border-b border-white/10 bg-navy-deep">
+        <section className="border-t border-white/10 bg-[#070B14]">
           <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-x-8 gap-y-3 px-6 py-5 lg:px-8">
             <p className="text-[11px] uppercase tracking-[0.22em] text-gold">
               Stack
@@ -152,54 +154,56 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         </section>
       ) : null}
 
-      <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
-          <FadeIn>
-            <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              The work
-            </p>
-            <h2 className="mt-4 font-display text-3xl text-white">
-              {headings.help}
-            </h2>
-            <div className="mt-6 space-y-5">
-              {service.overview.map((paragraph) => (
-                <p
-                  key={paragraph.slice(0, 48)}
-                  className="text-base leading-8 text-secondary"
-                >
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-          </FadeIn>
-          <FadeIn delay={0.08}>
-            <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              {headings.when}
-            </p>
-            <p className="mt-4 text-base leading-8 text-secondary">
-              {service.when}
-            </p>
-            <p className="mt-6 text-sm leading-7 text-secondary">
-              {service.deliveryNote}
-            </p>
-          </FadeIn>
-        </div>
-
-        <ul className="mt-14 space-y-4">
-          {service.howWeHelp.map((item, index) => (
-            <FadeIn key={item} delay={index * 0.03}>
-              <li className="flex gap-4 text-sm leading-7 text-secondary sm:text-base">
-                <span className="mt-0.5 font-display text-gold">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                {item}
-              </li>
+      <Band tone={tone()}>
+        <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+            <FadeIn>
+              <p className="text-xs uppercase tracking-[0.28em] text-gold">
+                The work
+              </p>
+              <h2 className="mt-4 font-display text-3xl text-white">
+                {headings.help}
+              </h2>
+              <div className="mt-6 space-y-5">
+                {service.overview.map((paragraph) => (
+                  <p
+                    key={paragraph.slice(0, 48)}
+                    className="text-base leading-8 text-secondary"
+                  >
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </FadeIn>
-          ))}
-        </ul>
-      </section>
+            <FadeIn delay={0.08}>
+              <p className="text-xs uppercase tracking-[0.28em] text-gold">
+                {headings.when}
+              </p>
+              <p className="mt-4 text-base leading-8 text-secondary">
+                {service.when}
+              </p>
+              <p className="mt-6 text-sm leading-7 text-secondary">
+                {service.deliveryNote}
+              </p>
+            </FadeIn>
+          </div>
 
-      <section className="border-y border-white/10 bg-white/[0.02]">
+          <ul className="mt-14 space-y-4">
+            {service.howWeHelp.map((item, index) => (
+              <FadeIn key={item} delay={index * 0.03}>
+                <li className="flex gap-4 text-sm leading-7 text-secondary sm:text-base">
+                  <span className="mt-0.5 font-display text-gold">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  {item}
+                </li>
+              </FadeIn>
+            ))}
+          </ul>
+        </div>
+      </Band>
+
+      <Band tone={tone()}>
         <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -227,53 +231,55 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             ))}
           </ol>
         </div>
-      </section>
+      </Band>
 
-      <section className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-2">
-          <FadeIn>
-            <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              What you receive
-            </p>
-            <h2 className="mt-4 font-display text-3xl text-white">
-              {headings.outcomes}
-            </h2>
-            <ul className="mt-8 space-y-3">
-              {service.outcomes.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-3 text-sm leading-7 text-secondary"
-                >
-                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-gold" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </FadeIn>
-          <FadeIn delay={0.08}>
-            <p className="text-xs uppercase tracking-[0.28em] text-gold">
-              Capabilities
-            </p>
-            <h2 className="mt-4 font-display text-3xl text-white">
-              {headings.scope}
-            </h2>
-            <ul className="mt-8 space-y-3">
-              {service.capabilities.map((item) => (
-                <li
-                  key={item}
-                  className="flex gap-3 text-sm leading-7 text-secondary"
-                >
-                  <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-gold" />
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </FadeIn>
+      <Band tone={tone()}>
+        <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
+          <div className="grid gap-12 lg:grid-cols-2">
+            <FadeIn>
+              <p className="text-xs uppercase tracking-[0.28em] text-gold">
+                What you receive
+              </p>
+              <h2 className="mt-4 font-display text-3xl text-white">
+                {headings.outcomes}
+              </h2>
+              <ul className="mt-8 space-y-3">
+                {service.outcomes.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-3 text-sm leading-7 text-secondary"
+                  >
+                    <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-gold" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </FadeIn>
+            <FadeIn delay={0.08}>
+              <p className="text-xs uppercase tracking-[0.28em] text-gold">
+                Capabilities
+              </p>
+              <h2 className="mt-4 font-display text-3xl text-white">
+                {headings.scope}
+              </h2>
+              <ul className="mt-8 space-y-3">
+                {service.capabilities.map((item) => (
+                  <li
+                    key={item}
+                    className="flex gap-3 text-sm leading-7 text-secondary"
+                  >
+                    <span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-gold" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </FadeIn>
+          </div>
         </div>
-      </section>
+      </Band>
 
       {isDiagnostic ? (
-        <section className="border-y border-white/10 bg-white/[0.02]">
+        <Band tone={tone()}>
           <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
             <FadeIn>
               <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -316,10 +322,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               </ol>
             </FadeIn>
           </div>
-        </section>
+        </Band>
       ) : null}
 
-      <section className="border-t border-white/10">
+      <Band tone={tone()}>
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -339,9 +345,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             ))}
           </dl>
         </div>
-      </section>
+      </Band>
 
-      <section className="border-t border-white/10">
+      <Band tone={tone()}>
         <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
           <FadeIn>
             <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -364,10 +370,10 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             ))}
           </ul>
         </div>
-      </section>
+      </Band>
 
       {isData ? (
-        <section className="border-t border-white/10">
+        <Band tone={tone()}>
           <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8">
             <FadeIn>
               <p className="text-xs uppercase tracking-[0.28em] text-gold">
@@ -389,7 +395,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               </Link>
             </FadeIn>
           </div>
-        </section>
+        </Band>
       ) : null}
 
       <CtaBand

@@ -138,7 +138,7 @@ export function FlowDashboardPreview() {
   const followUpRows = followUps.filter((item) => matches(item.client));
 
   return (
-    <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 lg:px-8 lg:pt-20">
+    <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
       <div
         data-theme={theme}
         style={flowThemes[theme] as CSSProperties}
@@ -493,7 +493,7 @@ export function FlowDashboardPreview() {
         and amounts are fictional. No live system and no customer data are
         connected on this page, and what is available depends on the pilot.
       </p>
-    </section>
+    </div>
   );
 }
 

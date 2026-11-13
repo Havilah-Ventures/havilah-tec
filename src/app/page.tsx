@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Button } from "@/components/Button";
+import { CtaBand } from "@/components/CtaBand";
 import { FadeIn } from "@/components/FadeIn";
 import { HomeHero } from "@/components/HomeHero";
 import { ServiceTile } from "@/components/ServiceTile";
@@ -15,10 +15,10 @@ export default function HomePage() {
     <>
       <HomeHero />
 
-      <section className="bg-[#F6F7FA] text-[#0B1220]">
+      <section className="surface-paper">
         <div className="mx-auto max-w-6xl px-6 py-20 lg:px-8 lg:py-24">
           <FadeIn>
-            <p className="text-xs uppercase tracking-[0.28em] text-[#8F6F22]">
+            <p className="text-xs uppercase tracking-[0.28em] text-[#8A6A1F]">
               Typical situations
             </p>
             <h2 className="mt-4 max-w-3xl font-display text-3xl sm:text-4xl">
@@ -32,7 +32,7 @@ export default function HomePage() {
                   href={item.href}
                   className="block h-full rounded-xl border border-[#EBEEF4] bg-white p-7 transition-colors hover:border-[#C9A24B]/60"
                 >
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-[#8F6F22]">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-[#8A6A1F]">
                     {item.service}
                   </p>
                   <h3 className="mt-3 font-display text-[21px] leading-snug">
@@ -66,10 +66,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-[#F6F7FA] text-[#0B1220]">
+      <section className="surface-paper">
         <div className="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6 px-6 py-20 lg:px-8 lg:py-24">
           <FadeIn>
-            <p className="text-xs uppercase tracking-[0.28em] text-[#8F6F22]">
+            <p className="text-xs uppercase tracking-[0.28em] text-[#8A6A1F]">
               Situations
             </p>
             <h2 className="mt-4 font-display text-3xl sm:text-4xl">
@@ -83,32 +83,18 @@ export default function HomePage() {
           </FadeIn>
           <Link
             href="/case-studies"
-            className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8F6F22] transition-colors hover:text-[#0B1220]"
+            className="text-sm font-semibold uppercase tracking-[0.18em] text-[#8A6A1F] transition-colors hover:text-[#0B1220]"
           >
             See all situations
           </Link>
         </div>
       </section>
 
-      <section className="bg-[#070B14]">
-        <div className="mx-auto max-w-6xl px-6 py-20 text-center lg:px-8 lg:py-24">
-          <FadeIn>
-            <h2 className="font-display text-3xl text-white sm:text-4xl">
-              Tell us the business challenge.
-            </h2>
-            <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[#C7CEDA]">
-              Unpaid invoices, a number you cannot defend, or a workflow
-              someone repeats by hand. We will say which line fits and what the
-              first step is.
-            </p>
-            <div className="mt-8">
-              <Button href="/contact" variant="solid">
-                Discuss a business challenge
-              </Button>
-            </div>
-          </FadeIn>
-        </div>
-      </section>
+      <CtaBand
+        title="Tell us the business challenge."
+        copy="Unpaid invoices, a number you cannot defend, or a workflow someone repeats by hand. We will say which line fits and what the first step is."
+        buttonLabel="Discuss a business challenge"
+      />
     </>
   );
 }

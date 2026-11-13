@@ -15,17 +15,19 @@ export function CtaBand({
   href = "/contact",
 }: CtaBandProps) {
   return (
-    <section className="border-t border-white/10 bg-white/[0.02]">
-      <div className="mx-auto max-w-6xl px-6 py-16 lg:px-8 lg:py-20">
+    <section className="bg-[#070B14]">
+      <div className="mx-auto max-w-6xl px-6 py-20 text-center lg:px-8 lg:py-24">
         <FadeIn>
-          <div className="flex flex-col items-start gap-6 rounded-sm border border-gold/30 bg-gold/[0.04] p-8 lg:flex-row lg:items-center lg:justify-between lg:p-10">
-            <div className="max-w-2xl">
-              <p className="font-display text-2xl text-white sm:text-3xl">
-                {title}
-              </p>
-              <p className="mt-3 text-sm leading-7 text-secondary">{copy}</p>
-            </div>
-            <Button href={href}>{buttonLabel}</Button>
+          <h2 className="font-display text-3xl text-white sm:text-4xl">
+            {title}
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[#C7CEDA]">
+            {copy}
+          </p>
+          <div className="mt-8">
+            <Button href={href} variant="solid">
+              {buttonLabel}
+            </Button>
           </div>
         </FadeIn>
       </div>
