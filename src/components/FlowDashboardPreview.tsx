@@ -1,92 +1,19 @@
 "use client";
 
 import { useState, type CSSProperties, type ReactNode } from "react";
+import { FlowMark } from "./FlowMark";
+import { FlowRevenueSummary } from "./FlowRevenueSummary";
+import {
+  flowThemes,
+  followUps,
+  invoices,
+  jobs,
+  money,
+  type FlowTheme,
+} from "@/lib/flowSample";
 
-type Theme = "dark" | "light";
 type Tab = "inv" | "unb" | "fu" | "how" | "faq";
 type Outcome = "queued" | "skipped";
-
-const themes: Record<Theme, Record<string, string>> = {
-  dark: {
-    "--fl-bg": "#070B14",
-    "--fl-card": "#0D1626",
-    "--fl-raised": "#111A2C",
-    "--fl-line": "#1B2740",
-    "--fl-text": "#E8ECF4",
-    "--fl-muted": "#8A97AD",
-    "--fl-gold": "#C9A24B",
-    "--fl-gold-text": "#E0BC6A",
-    "--fl-figure": "#C9A24B",
-    "--fl-ok": "#2FB57F",
-    "--fl-warn": "#E8742C",
-    "--fl-bad": "#E5484D",
-    "--fl-info": "#4C8DFF",
-  },
-  light: {
-    "--fl-bg": "#F6F7FA",
-    "--fl-card": "#FFFFFF",
-    "--fl-raised": "#EBEEF4",
-    "--fl-line": "#DDE2EC",
-    "--fl-text": "#0B1220",
-    "--fl-muted": "#5E6C84",
-    "--fl-gold": "#C9A24B",
-    "--fl-gold-text": "#8F6F22",
-    "--fl-figure": "#8F6F22",
-    "--fl-ok": "#1E8F61",
-    "--fl-warn": "#C25A18",
-    "--fl-bad": "#D23A40",
-    "--fl-info": "#2F6FE0",
-  },
-};
-
-const invoices = [
-  { id: "INV-2041", client: "Desert Ridge Dental", amount: 12400, overdue: 47, last: "Oct 2" },
-  { id: "INV-2057", client: "Copper State Logistics", amount: 28750, overdue: 62, last: "Sep 21" },
-  { id: "INV-2063", client: "Saguaro Property Group", amount: 9180, overdue: 18, last: "Oct 29" },
-  { id: "INV-2070", client: "Gilbert Family Clinic", amount: 15600, overdue: 9, last: "Nov 4" },
-  { id: "INV-2018", client: "Mesa Cold Storage", amount: 21300, overdue: 96, last: "Aug 30" },
-  { id: "INV-2082", client: "Sonoran Hospitality", amount: 7420, overdue: 3, last: "Nov 10" },
-  { id: "INV-2029", client: "Chandler Schools Co-op", amount: 18900, overdue: 34, last: "Oct 14" },
-];
-
-const jobs = [
-  { id: "JOB-7712", client: "Desert Ridge Dental", job: "Rooftop unit replacement", amount: 18400, waiting: 21, done: "Oct 23" },
-  { id: "JOB-7730", client: "Copper State Logistics", job: "Dock cooling repair", amount: 9650, waiting: 14, done: "Oct 30" },
-  { id: "JOB-7741", client: "Saguaro Property Group", job: "Quarterly maintenance (6 sites)", amount: 12300, waiting: 9, done: "Nov 4" },
-  { id: "JOB-7755", client: "Mesa Cold Storage", job: "Compressor diagnostics", amount: 6800, waiting: 6, done: "Nov 7" },
-  { id: "JOB-7760", client: "Sonoran Hospitality", job: "Kitchen exhaust install", amount: 14200, waiting: 4, done: "Nov 9" },
-];
-
-const followUps = [
-  {
-    client: "Mesa Cold Storage",
-    why: "96 days overdue, no reply to 3 emails",
-    next: "Call the accounts payable contact, then prepare a final notice.",
-    draft:
-      "Hi Carla, invoice INV-2018 for $21,300 is now 96 days past due. Could you confirm a payment date this week? Happy to resend the invoice.",
-  },
-  {
-    client: "Copper State Logistics",
-    why: "$28,750 overdue and a $9,650 job not yet billed",
-    next: "Bill the dock repair in your accounting system, then send both together.",
-    draft:
-      "Hi Raj, attached are INV-2057 and a new invoice for the dock cooling repair. Can we schedule both for payment on the next run?",
-  },
-  {
-    client: "Desert Ridge Dental",
-    why: "Invoice 47 days overdue, $18,400 job completed 21 days ago",
-    next: "Invoice the rooftop unit, then send a friendly reminder.",
-    draft:
-      "Hi Dr. Patel, thank you for your business. Your rooftop unit invoice is attached, along with a reminder for INV-2041.",
-  },
-  {
-    client: "Chandler Schools Co-op",
-    why: "34 days overdue, last contact 30 days ago",
-    next: "Send a reminder with the purchase order number.",
-    draft:
-      "Hello, a quick reminder that INV-2029 for $18,900 is past due. The PO number is on the attached copy.",
-  },
-];
 
 const steps = [
   {
@@ -153,58 +80,10 @@ const questions = [
   },
 ];
 
-const money = new Intl.NumberFormat("en-US", {
-  style: "currency",
-  currency: "USD",
-  maximumFractionDigits: 0,
-});
-
-const unpaidTotal = invoices.reduce((sum, row) => sum + row.amount, 0);
-const unbilledTotal = jobs.reduce((sum, row) => sum + row.amount, 0);
-const earnedTotal = unpaidTotal + unbilledTotal;
-const collected = 96400;
-
-const buckets = [
-  { label: "0–30 days", from: 0, to: 30, color: "var(--fl-info)" },
-  { label: "31–60", from: 31, to: 60, color: "var(--fl-warn)" },
-  { label: "61–90", from: 61, to: 90, color: "var(--fl-warn)" },
-  { label: "90+", from: 91, to: 9999, color: "var(--fl-bad)" },
-].map((bucket) => ({
-  ...bucket,
-  value: invoices
-    .filter((row) => row.overdue >= bucket.from && row.overdue <= bucket.to)
-    .reduce((sum, row) => sum + row.amount, 0),
-}));
-const largestBucket = Math.max(...buckets.map((bucket) => bucket.value));
-
 function severity(days: number) {
   if (days > 60) return { color: "var(--fl-bad)", mark: "▲" };
   if (days > 30) return { color: "var(--fl-warn)", mark: "▲" };
   return { color: "var(--fl-info)", mark: "●" };
-}
-
-function FlowMark({ size = 32 }: { size?: number }) {
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 64 64"
-      fill="none"
-      aria-hidden="true"
-      className="shrink-0"
-    >
-      <g
-        stroke="var(--fl-gold-text)"
-        strokeWidth="6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M20 52V22a10 10 0 0 1 10-10h8a10 10 0 0 1 10 10" />
-        <path d="M20 34h6a12 12 0 0 1 12 12" />
-      </g>
-      <circle cx="48" cy="24" r="4.5" fill="var(--fl-gold)" />
-    </svg>
-  );
 }
 
 function Chip({ color, children }: { color: string; children: ReactNode }) {
@@ -224,7 +103,7 @@ const quietButton =
   "rounded-md border border-[var(--fl-line)] px-3 py-1.5 text-[13px] text-[var(--fl-text)] hover:border-[var(--fl-gold)]";
 
 export function FlowDashboardPreview() {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<FlowTheme>("dark");
   const [tab, setTab] = useState<Tab>("inv");
   const [query, setQuery] = useState("");
   const [outcomes, setOutcomes] = useState<Record<string, Outcome>>({});
@@ -262,7 +141,7 @@ export function FlowDashboardPreview() {
     <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 lg:px-8 lg:pt-20">
       <div
         data-theme={theme}
-        style={themes[theme] as CSSProperties}
+        style={flowThemes[theme] as CSSProperties}
         className="overflow-hidden rounded-xl border border-[var(--fl-line)] bg-[var(--fl-bg)] text-[var(--fl-text)] [font-variant-numeric:tabular-nums]"
       >
         <div className="flex flex-wrap items-center gap-3 border-b border-[var(--fl-line)] px-5 py-4">
@@ -288,102 +167,7 @@ export function FlowDashboardPreview() {
         </div>
 
         <div className="p-5 sm:p-6">
-          <div className="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
-            <div className="rounded-xl border border-[var(--fl-line)] bg-[var(--fl-card)] p-5">
-              <p className="text-[13px] text-[var(--fl-muted)]">
-                Earned but not yet collected
-              </p>
-              <p className="mt-1 font-display text-5xl leading-tight text-[var(--fl-figure)] sm:text-6xl">
-                {money.format(earnedTotal)}
-              </p>
-              <p className="text-[13px] text-[var(--fl-muted)]">
-                {invoices.length} invoices are unpaid and {jobs.length} completed
-                jobs have not been billed.
-              </p>
-              <div className="mt-4 flex h-2 overflow-hidden rounded bg-[var(--fl-raised)]">
-                <i
-                  className="block h-full"
-                  style={{
-                    width: `${(unpaidTotal / earnedTotal) * 100}%`,
-                    background: "var(--fl-bad)",
-                  }}
-                />
-                <i
-                  className="block h-full"
-                  style={{
-                    width: `${(unbilledTotal / earnedTotal) * 100}%`,
-                    background: "var(--fl-warn)",
-                  }}
-                />
-              </div>
-              <div className="mt-3 flex flex-wrap gap-5 text-[13px]">
-                <span className="flex items-center gap-2">
-                  <i className="block h-2.5 w-2.5 rounded-full bg-[var(--fl-bad)]" />
-                  Unpaid {money.format(unpaidTotal)}
-                </span>
-                <span className="flex items-center gap-2">
-                  <i className="block h-2.5 w-2.5 rounded-full bg-[var(--fl-warn)]" />
-                  Unbilled {money.format(unbilledTotal)}
-                </span>
-              </div>
-            </div>
-            <div className="rounded-xl border border-[var(--fl-line)] bg-[var(--fl-card)] p-5">
-              <p className="text-sm font-semibold">Unpaid invoices by age</p>
-              <div className="mt-4 space-y-3">
-                {buckets.map((bucket) => (
-                  <div
-                    key={bucket.label}
-                    className="grid grid-cols-[72px_1fr_80px] items-center gap-3 text-[13px]"
-                  >
-                    <span>{bucket.label}</span>
-                    <div className="h-3.5 overflow-hidden rounded bg-[var(--fl-raised)]">
-                      <i
-                        className="block h-full rounded"
-                        style={{
-                          width: `${(bucket.value / largestBucket) * 100}%`,
-                          background: bucket.color,
-                        }}
-                      />
-                    </div>
-                    <span className="text-right">{money.format(bucket.value)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 grid gap-5 sm:grid-cols-3">
-            {[
-              {
-                color: "var(--fl-bad)",
-                label: "Overdue invoices",
-                value: money.format(unpaidTotal),
-                note: `▲ ${invoices.length} accounts`,
-              },
-              {
-                color: "var(--fl-warn)",
-                label: "Done, not billed",
-                value: money.format(unbilledTotal),
-                note: `▲ ${jobs.length} jobs waiting`,
-              },
-              {
-                color: "var(--fl-ok)",
-                label: "Collected in November",
-                value: money.format(collected),
-                note: "✓ 31 invoices paid",
-              },
-            ].map((kpi) => (
-              <div
-                key={kpi.label}
-                className="border-l-[3px] pl-4"
-                style={{ borderColor: kpi.color }}
-              >
-                <p className="text-[13px] text-[var(--fl-muted)]">{kpi.label}</p>
-                <p className="mt-0.5 text-2xl font-semibold">{kpi.value}</p>
-                <p className="text-[13px] text-[var(--fl-muted)]">{kpi.note}</p>
-              </div>
-            ))}
-          </div>
+          <FlowRevenueSummary />
 
           <div
             role="tablist"
