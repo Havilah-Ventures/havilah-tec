@@ -1,151 +1,92 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 
-type View = "overview" | "collections" | "leakage" | "workflow" | "faq";
+type Theme = "dark" | "light";
+type Tab = "inv" | "unb" | "fu" | "how" | "faq";
+type Outcome = "queued" | "skipped";
 
-type Invoice = {
-  id: string;
-  customer: string;
-  segment: string;
-  type: string;
-  amount: string;
-  balance: string;
-  due: string;
-  age: string;
-  status: string;
-  filter: "overdue" | "due" | "partial";
-  found: string;
-  action: string;
+const themes: Record<Theme, Record<string, string>> = {
+  dark: {
+    "--fl-bg": "#070B14",
+    "--fl-card": "#0D1626",
+    "--fl-raised": "#111A2C",
+    "--fl-line": "#1B2740",
+    "--fl-text": "#E8ECF4",
+    "--fl-muted": "#8A97AD",
+    "--fl-gold": "#C9A24B",
+    "--fl-gold-text": "#E0BC6A",
+    "--fl-figure": "#C9A24B",
+    "--fl-ok": "#2FB57F",
+    "--fl-warn": "#E8742C",
+    "--fl-bad": "#E5484D",
+    "--fl-info": "#4C8DFF",
+  },
+  light: {
+    "--fl-bg": "#F6F7FA",
+    "--fl-card": "#FFFFFF",
+    "--fl-raised": "#EBEEF4",
+    "--fl-line": "#DDE2EC",
+    "--fl-text": "#0B1220",
+    "--fl-muted": "#5E6C84",
+    "--fl-gold": "#C9A24B",
+    "--fl-gold-text": "#8F6F22",
+    "--fl-figure": "#8F6F22",
+    "--fl-ok": "#1E8F61",
+    "--fl-warn": "#C25A18",
+    "--fl-bad": "#D23A40",
+    "--fl-info": "#2F6FE0",
+  },
 };
 
-type Job = {
-  id: string;
-  customer: string;
-  type: string;
-  amount: string;
-  age: string;
-  status: string;
-  found: string;
-  action: string;
-};
-
-const invoices: Invoice[] = [
-  {
-    id: "INV-2048",
-    customer: "Redstone Property Group",
-    segment: "Commercial service",
-    type: "Commercial service invoice",
-    amount: "$4,280",
-    balance: "$4,280",
-    due: "32 days ago",
-    age: "32 days overdue",
-    status: "Past due",
-    filter: "overdue",
-    found:
-      "No payment is currently matched to this invoice in the sample records.",
-    action:
-      "Confirm the invoice was received, review any prior communication, and consider a friendly payment-status follow-up.",
-  },
-  {
-    id: "INV-2039",
-    customer: "Canyon Ridge Homes",
-    segment: "Residential HVAC",
-    type: "Residential HVAC invoice",
-    amount: "$2,160",
-    balance: "$2,160",
-    due: "18 days ago",
-    age: "18 days overdue",
-    status: "Past due",
-    filter: "overdue",
-    found: "The sample record shows the full balance remains open.",
-    action:
-      "Check whether the customer has raised a question or requested documentation before following up.",
-  },
-  {
-    id: "INV-2055",
-    customer: "Desert Oak Facilities",
-    segment: "Maintenance contract",
-    type: "Maintenance contract invoice",
-    amount: "$6,750",
-    balance: "$6,750",
-    due: "7 days ago",
-    age: "7 days overdue",
-    status: "Past due",
-    filter: "overdue",
-    found: "The due date has passed and no matched payment is shown.",
-    action:
-      "Review contract payment terms and confirm the invoice reached the correct accounts-payable contact.",
-  },
-  {
-    id: "INV-2061",
-    customer: "Copper State Dental",
-    segment: "Commercial plumbing",
-    type: "Commercial plumbing invoice",
-    amount: "$1,260",
-    balance: "$1,260",
-    due: "Due today",
-    age: "Due today",
-    status: "Due today",
-    filter: "due",
-    found: "The invoice is due today; no overdue status is implied.",
-    action:
-      "No urgent action is required. Monitor the due date and follow your normal payment process.",
-  },
-  {
-    id: "INV-2017",
-    customer: "Pinnacle Retail Partners",
-    segment: "Commercial HVAC",
-    type: "Commercial HVAC invoice",
-    amount: "$3,400",
-    balance: "$900",
-    due: "Partial",
-    age: "Partially paid",
-    status: "Partial payment",
-    filter: "partial",
-    found: "A $2,500 payment is matched, leaving a $900 open balance.",
-    action:
-      "Confirm the remaining balance and check whether the customer expects another payment or a credit.",
-  },
+const invoices = [
+  { id: "INV-2041", client: "Desert Ridge Dental", amount: 12400, overdue: 47, last: "Oct 2" },
+  { id: "INV-2057", client: "Copper State Logistics", amount: 28750, overdue: 62, last: "Sep 21" },
+  { id: "INV-2063", client: "Saguaro Property Group", amount: 9180, overdue: 18, last: "Oct 29" },
+  { id: "INV-2070", client: "Gilbert Family Clinic", amount: 15600, overdue: 9, last: "Nov 4" },
+  { id: "INV-2018", client: "Mesa Cold Storage", amount: 21300, overdue: 96, last: "Aug 30" },
+  { id: "INV-2082", client: "Sonoran Hospitality", amount: 7420, overdue: 3, last: "Nov 10" },
+  { id: "INV-2029", client: "Chandler Schools Co-op", amount: 18900, overdue: 34, last: "Oct 14" },
 ];
 
-const jobs: Record<string, Job> = {
-  "JB-8814": {
-    id: "JB-8814",
-    customer: "Redstone Property Group",
-    type: "Completed HVAC service job",
-    amount: "$1,940 estimated",
-    age: "Completed 4 days ago",
-    status: "No confident invoice match",
-    found:
-      "The sample job record is marked complete. The demonstration matching process did not find a sufficiently confident invoice match.",
-    action:
-      "Check the field-service and accounting systems for a draft, delayed, contract-covered, or separately issued invoice before treating this as unbilled.",
+const jobs = [
+  { id: "JOB-7712", client: "Desert Ridge Dental", job: "Rooftop unit replacement", amount: 18400, waiting: 21, done: "Oct 23" },
+  { id: "JOB-7730", client: "Copper State Logistics", job: "Dock cooling repair", amount: 9650, waiting: 14, done: "Oct 30" },
+  { id: "JOB-7741", client: "Saguaro Property Group", job: "Quarterly maintenance (6 sites)", amount: 12300, waiting: 9, done: "Nov 4" },
+  { id: "JOB-7755", client: "Mesa Cold Storage", job: "Compressor diagnostics", amount: 6800, waiting: 6, done: "Nov 7" },
+  { id: "JOB-7760", client: "Sonoran Hospitality", job: "Kitchen exhaust install", amount: 14200, waiting: 4, done: "Nov 9" },
+];
+
+const followUps = [
+  {
+    client: "Mesa Cold Storage",
+    why: "96 days overdue, no reply to 3 emails",
+    next: "Call the accounts payable contact, then prepare a final notice.",
+    draft:
+      "Hi Carla, invoice INV-2018 for $21,300 is now 96 days past due. Could you confirm a payment date this week? Happy to resend the invoice.",
   },
-  "JB-8821": {
-    id: "JB-8821",
-    customer: "Mesa Vista Homes",
-    type: "Completed plumbing repair",
-    amount: "$1,280 estimated",
-    age: "Completed 3 days ago",
-    status: "Invoice status unclear",
-    found: "The sample job appears complete, but invoice status is ambiguous.",
-    action:
-      "Confirm whether billing is pending approval, already completed in another system, or intentionally not billable.",
+  {
+    client: "Copper State Logistics",
+    why: "$28,750 overdue and a $9,650 job not yet billed",
+    next: "Bill the dock repair in your accounting system, then send both together.",
+    draft:
+      "Hi Raj, attached are INV-2057 and a new invoice for the dock cooling repair. Can we schedule both for payment on the next run?",
   },
-  "JB-8830": {
-    id: "JB-8830",
-    customer: "North Valley Offices",
-    type: "Completed maintenance job",
-    amount: "$420 variance",
-    age: "Completed 6 days ago",
-    status: "Amount mismatch",
-    found:
-      "The illustrative job total and matched invoice total differ by $420.",
-    action:
-      "Compare labor, materials, discounts, tax, and approved change orders. Do not assume the difference is underbilling until verified.",
+  {
+    client: "Desert Ridge Dental",
+    why: "Invoice 47 days overdue, $18,400 job completed 21 days ago",
+    next: "Invoice the rooftop unit, then send a friendly reminder.",
+    draft:
+      "Hi Dr. Patel, thank you for your business. Your rooftop unit invoice is attached, along with a reminder for INV-2041.",
   },
-};
+  {
+    client: "Chandler Schools Co-op",
+    why: "34 days overdue, last contact 30 days ago",
+    next: "Send a reminder with the purchase order number.",
+    draft:
+      "Hello, a quick reminder that INV-2029 for $18,900 is past due. The PO number is on the attached copy.",
+  },
+];
 
 const steps = [
   {
@@ -212,112 +153,554 @@ const questions = [
   },
 ];
 
-const nav: { id: View; label: string }[] = [
-  { id: "overview", label: "Overview" },
-  { id: "collections", label: "Collections" },
-  { id: "leakage", label: "Unbilled work" },
-  { id: "workflow", label: "How it works" },
-  { id: "faq", label: "Questions" },
-];
+const money = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
 
-const crumbs: Record<View, string> = {
-  overview: "Overview",
-  collections: "Collections",
-  leakage: "Unbilled work",
-  workflow: "How it works",
-  faq: "Questions",
-};
+const unpaidTotal = invoices.reduce((sum, row) => sum + row.amount, 0);
+const unbilledTotal = jobs.reduce((sum, row) => sum + row.amount, 0);
+const earnedTotal = unpaidTotal + unbilledTotal;
+const collected = 96400;
 
-type Modal =
-  | { kind: "invoice"; id: string }
-  | { kind: "job"; id: string }
-  | null;
+const buckets = [
+  { label: "0–30 days", from: 0, to: 30, color: "var(--fl-info)" },
+  { label: "31–60", from: 31, to: 60, color: "var(--fl-warn)" },
+  { label: "61–90", from: 61, to: 90, color: "var(--fl-warn)" },
+  { label: "90+", from: 91, to: 9999, color: "var(--fl-bad)" },
+].map((bucket) => ({
+  ...bucket,
+  value: invoices
+    .filter((row) => row.overdue >= bucket.from && row.overdue <= bucket.to)
+    .reduce((sum, row) => sum + row.amount, 0),
+}));
+const largestBucket = Math.max(...buckets.map((bucket) => bucket.value));
+
+function severity(days: number) {
+  if (days > 60) return { color: "var(--fl-bad)", mark: "▲" };
+  if (days > 30) return { color: "var(--fl-warn)", mark: "▲" };
+  return { color: "var(--fl-info)", mark: "●" };
+}
+
+function FlowMark({ size = 32 }: { size?: number }) {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 64 64"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <g
+        stroke="var(--fl-gold-text)"
+        strokeWidth="6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M20 52V22a10 10 0 0 1 10-10h8a10 10 0 0 1 10 10" />
+        <path d="M20 34h6a12 12 0 0 1 12 12" />
+      </g>
+      <circle cx="48" cy="24" r="4.5" fill="var(--fl-gold)" />
+    </svg>
+  );
+}
+
+function Chip({ color, children }: { color: string; children: ReactNode }) {
+  return (
+    <span
+      className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs"
+      style={{ borderColor: color, color }}
+    >
+      {children}
+    </span>
+  );
+}
+
+const actionButton =
+  "rounded-md bg-[var(--fl-gold)] px-3 py-1.5 text-[13px] font-semibold text-[#0B1220] hover:brightness-110";
+const quietButton =
+  "rounded-md border border-[var(--fl-line)] px-3 py-1.5 text-[13px] text-[var(--fl-text)] hover:border-[var(--fl-gold)]";
 
 export function FlowDashboardPreview() {
-  const [view, setView] = useState<View>("overview");
+  const [theme, setTheme] = useState<Theme>("dark");
+  const [tab, setTab] = useState<Tab>("inv");
+  const [query, setQuery] = useState("");
+  const [outcomes, setOutcomes] = useState<Record<string, Outcome>>({});
+  const [notice, setNotice] = useState("");
   const [step, setStep] = useState(0);
-  const [filter, setFilter] = useState<"all" | Invoice["filter"]>("all");
   const [openQuestion, setOpenQuestion] = useState(0);
-  const [modal, setModal] = useState<Modal>(null);
 
-  useEffect(() => {
-    function onKey(event: KeyboardEvent) {
-      if (event.key === "Escape") setModal(null);
-    }
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  const q = query.trim().toLowerCase();
+  const matches = (text: string) => !q || text.toLowerCase().includes(q);
 
-  const shown = invoices.filter(
-    (row) => filter === "all" || row.filter === filter,
-  );
-  const record =
-    modal?.kind === "invoice"
-      ? invoices.find((row) => row.id === modal.id)
-      : modal
-        ? jobs[modal.id]
-        : undefined;
+  function record(key: string, outcome: Outcome, message: string) {
+    setOutcomes((current) => ({ ...current, [key]: outcome }));
+    setNotice(message);
+  }
+
+  const openFollowUps = followUps.filter((item) => !outcomes[`fu:${item.client}`]);
+  const tabs: { id: Tab; label: string; count?: number }[] = [
+    { id: "inv", label: "Unpaid invoices", count: invoices.length },
+    { id: "unb", label: "Unbilled work", count: jobs.length },
+    { id: "fu", label: "Follow-ups", count: openFollowUps.length },
+    { id: "how", label: "How it works" },
+    { id: "faq", label: "Questions" },
+  ];
+  const searchable = tab === "inv" || tab === "unb" || tab === "fu";
+
+  const invoiceRows = invoices
+    .filter((row) => matches(`${row.client} ${row.id}`))
+    .sort((a, b) => b.overdue - a.overdue);
+  const jobRows = jobs
+    .filter((row) => matches(`${row.client} ${row.job} ${row.id}`))
+    .sort((a, b) => b.waiting - a.waiting);
+  const followUpRows = followUps.filter((item) => matches(item.client));
 
   return (
     <section className="mx-auto max-w-6xl px-6 pt-16 pb-10 lg:px-8 lg:pt-20">
-      <div className="overflow-hidden rounded-sm border border-white/10 bg-navy-deep lg:grid lg:grid-cols-[220px_1fr]">
-        <nav className="flex gap-2 overflow-x-auto border-b border-white/10 p-3 lg:flex-col lg:gap-1 lg:border-b-0 lg:border-r lg:p-4">
-          <p className="hidden px-3 pb-2 text-[11px] uppercase tracking-[0.16em] text-gold lg:block">
-            Workspace
-          </p>
-          {nav.map((item) => (
-            <button
-              key={item.id}
-              type="button"
-              onClick={() => setView(item.id)}
-              className={`shrink-0 rounded-sm px-3 py-2 text-left text-sm ${
-                view === item.id
-                  ? "bg-gold/10 text-gold"
-                  : "text-secondary hover:text-white"
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-          <p className="mt-auto hidden px-3 pt-8 text-xs leading-5 text-secondary lg:block">
-            Havilah Flow is designed as a layer on the field-service and
-            accounting software you already use. It does not replace them.
-          </p>
-        </nav>
-
-        <div className="min-w-0">
-          <div className="flex items-center justify-between gap-4 border-b border-white/10 px-5 py-4">
-            <p className="text-sm text-secondary">
-              Havilah Flow <span className="text-white">/ {crumbs[view]}</span>
+      <div
+        data-theme={theme}
+        style={themes[theme] as CSSProperties}
+        className="overflow-hidden rounded-xl border border-[var(--fl-line)] bg-[var(--fl-bg)] text-[var(--fl-text)] [font-variant-numeric:tabular-nums]"
+      >
+        <div className="flex flex-wrap items-center gap-3 border-b border-[var(--fl-line)] px-5 py-4">
+          <FlowMark />
+          <div className="min-w-0">
+            <p className="font-display text-lg leading-tight">Havilah Flow</p>
+            <p className="text-xs text-[var(--fl-muted)]">
+              Summit Mechanical Services · Revenue view
             </p>
-            <p className="rounded-sm border border-gold/30 px-3 py-1 text-[11px] uppercase tracking-[0.14em] text-gold">
+          </div>
+          <div className="ml-auto flex items-center gap-2">
+            <span className="rounded-full border border-[var(--fl-gold)]/50 px-3 py-1 text-[11px] text-[var(--fl-gold-text)]">
               Illustrative demo data
-            </p>
+            </span>
+            <button
+              type="button"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className={quietButton}
+            >
+              {theme === "dark" ? "Light mode" : "Dark mode"}
+            </button>
+          </div>
+        </div>
+
+        <div className="p-5 sm:p-6">
+          <div className="grid gap-5 lg:grid-cols-[1.1fr_1fr]">
+            <div className="rounded-xl border border-[var(--fl-line)] bg-[var(--fl-card)] p-5">
+              <p className="text-[13px] text-[var(--fl-muted)]">
+                Earned but not yet collected
+              </p>
+              <p className="mt-1 font-display text-5xl leading-tight text-[var(--fl-figure)] sm:text-6xl">
+                {money.format(earnedTotal)}
+              </p>
+              <p className="text-[13px] text-[var(--fl-muted)]">
+                {invoices.length} invoices are unpaid and {jobs.length} completed
+                jobs have not been billed.
+              </p>
+              <div className="mt-4 flex h-2 overflow-hidden rounded bg-[var(--fl-raised)]">
+                <i
+                  className="block h-full"
+                  style={{
+                    width: `${(unpaidTotal / earnedTotal) * 100}%`,
+                    background: "var(--fl-bad)",
+                  }}
+                />
+                <i
+                  className="block h-full"
+                  style={{
+                    width: `${(unbilledTotal / earnedTotal) * 100}%`,
+                    background: "var(--fl-warn)",
+                  }}
+                />
+              </div>
+              <div className="mt-3 flex flex-wrap gap-5 text-[13px]">
+                <span className="flex items-center gap-2">
+                  <i className="block h-2.5 w-2.5 rounded-full bg-[var(--fl-bad)]" />
+                  Unpaid {money.format(unpaidTotal)}
+                </span>
+                <span className="flex items-center gap-2">
+                  <i className="block h-2.5 w-2.5 rounded-full bg-[var(--fl-warn)]" />
+                  Unbilled {money.format(unbilledTotal)}
+                </span>
+              </div>
+            </div>
+            <div className="rounded-xl border border-[var(--fl-line)] bg-[var(--fl-card)] p-5">
+              <p className="text-sm font-semibold">Unpaid invoices by age</p>
+              <div className="mt-4 space-y-3">
+                {buckets.map((bucket) => (
+                  <div
+                    key={bucket.label}
+                    className="grid grid-cols-[72px_1fr_80px] items-center gap-3 text-[13px]"
+                  >
+                    <span>{bucket.label}</span>
+                    <div className="h-3.5 overflow-hidden rounded bg-[var(--fl-raised)]">
+                      <i
+                        className="block h-full rounded"
+                        style={{
+                          width: `${(bucket.value / largestBucket) * 100}%`,
+                          background: bucket.color,
+                        }}
+                      />
+                    </div>
+                    <span className="text-right">{money.format(bucket.value)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="p-5 sm:p-6">
-            {view === "overview" ? (
-              <Overview
-                onView={setView}
-                step={step}
-                onStep={setStep}
-                onOpen={setModal}
-              />
+          <div className="mt-6 grid gap-5 sm:grid-cols-3">
+            {[
+              {
+                color: "var(--fl-bad)",
+                label: "Overdue invoices",
+                value: money.format(unpaidTotal),
+                note: `▲ ${invoices.length} accounts`,
+              },
+              {
+                color: "var(--fl-warn)",
+                label: "Done, not billed",
+                value: money.format(unbilledTotal),
+                note: `▲ ${jobs.length} jobs waiting`,
+              },
+              {
+                color: "var(--fl-ok)",
+                label: "Collected in November",
+                value: money.format(collected),
+                note: "✓ 31 invoices paid",
+              },
+            ].map((kpi) => (
+              <div
+                key={kpi.label}
+                className="border-l-[3px] pl-4"
+                style={{ borderColor: kpi.color }}
+              >
+                <p className="text-[13px] text-[var(--fl-muted)]">{kpi.label}</p>
+                <p className="mt-0.5 text-2xl font-semibold">{kpi.value}</p>
+                <p className="text-[13px] text-[var(--fl-muted)]">{kpi.note}</p>
+              </div>
+            ))}
+          </div>
+
+          <div
+            role="tablist"
+            aria-label="Revenue view sections"
+            className="mt-8 flex flex-wrap gap-1 border-b border-[var(--fl-line)]"
+          >
+            {tabs.map((item) => (
+              <button
+                key={item.id}
+                type="button"
+                role="tab"
+                aria-selected={tab === item.id}
+                onClick={() => setTab(item.id)}
+                className={`-mb-px border-b-2 px-3.5 py-2.5 text-sm ${
+                  tab === item.id
+                    ? "border-[var(--fl-gold)] text-[var(--fl-text)]"
+                    : "border-transparent text-[var(--fl-muted)] hover:text-[var(--fl-text)]"
+                }`}
+              >
+                {item.label}
+                {item.count !== undefined ? (
+                  <em className="ml-1.5 rounded-full bg-[var(--fl-raised)] px-2 py-px text-xs not-italic">
+                    {item.count}
+                  </em>
+                ) : null}
+              </button>
+            ))}
+          </div>
+
+          {searchable ? (
+            <input
+              type="search"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="Search by client or job"
+              aria-label="Search"
+              className="mt-4 w-full max-w-xs rounded-md border border-[var(--fl-line)] bg-[var(--fl-card)] px-3 py-2 text-sm text-[var(--fl-text)] placeholder:text-[var(--fl-muted)] focus:border-[var(--fl-gold)] focus:outline-none"
+            />
+          ) : null}
+
+          <div className="mt-4">
+            {tab === "inv" ? (
+              invoiceRows.length ? (
+                <div className="overflow-x-auto rounded-xl border border-[var(--fl-line)] bg-[var(--fl-card)]">
+                  <table className="w-full min-w-[680px] border-collapse text-sm">
+                    <thead>
+                      <tr className="text-left text-xs text-[var(--fl-muted)]">
+                        <th className="px-4 py-3 font-medium">Invoice</th>
+                        <th className="px-4 py-3 font-medium">Client</th>
+                        <th className="px-4 py-3 font-medium">Status</th>
+                        <th className="px-4 py-3 font-medium">Last contact</th>
+                        <th className="px-4 py-3 text-right font-medium">Amount</th>
+                        <th className="px-4 py-3" />
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {invoiceRows.map((row) => {
+                        const level = severity(row.overdue);
+                        const key = `inv:${row.id}`;
+                        return (
+                          <tr key={row.id} className="border-t border-[var(--fl-line)]">
+                            <td className="px-4 py-3">{row.id}</td>
+                            <td className="px-4 py-3">{row.client}</td>
+                            <td className="px-4 py-3">
+                              <Chip color={level.color}>
+                                {level.mark} {row.overdue} days overdue
+                              </Chip>
+                            </td>
+                            <td className="px-4 py-3">{row.last}</td>
+                            <td className="px-4 py-3 text-right">
+                              {money.format(row.amount)}
+                            </td>
+                            <td className="px-4 py-3 text-right">
+                              {outcomes[key] ? (
+                                <span className="text-[13px] text-[var(--fl-ok)]">
+                                  ✓ Queued for approval
+                                </span>
+                              ) : (
+                                <button
+                                  type="button"
+                                  className={actionButton}
+                                  onClick={() =>
+                                    record(
+                                      key,
+                                      "queued",
+                                      `Reminder for ${row.id} queued for a person to approve. Nothing was sent.`,
+                                    )
+                                  }
+                                >
+                                  Draft reminder
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <NoMatches />
+              )
             ) : null}
-            {view === "collections" ? (
-              <Collections
-                rows={shown}
-                filter={filter}
-                onFilter={setFilter}
-                onOpen={setModal}
-              />
+
+            {tab === "unb" ? (
+              jobRows.length ? (
+                <div className="overflow-x-auto rounded-xl border border-[var(--fl-line)] bg-[var(--fl-card)]">
+                  <table className="w-full min-w-[680px] border-collapse text-sm">
+                    <thead>
+                      <tr className="text-left text-xs text-[var(--fl-muted)]">
+                        <th className="px-4 py-3 font-medium">Job</th>
+                        <th className="px-4 py-3 font-medium">Client</th>
+                        <th className="px-4 py-3 font-medium">Completed</th>
+                        <th className="px-4 py-3 font-medium">Waiting</th>
+                        <th className="px-4 py-3 text-right font-medium">Value</th>
+                        <th className="px-4 py-3" />
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {jobRows.map((row) => {
+                        const key = `unb:${row.id}`;
+                        return (
+                          <tr key={row.id} className="border-t border-[var(--fl-line)]">
+                            <td className="px-4 py-3">
+                              {row.job}
+                              <span className="block text-xs text-[var(--fl-muted)]">
+                                {row.id}
+                              </span>
+                            </td>
+                            <td className="px-4 py-3">{row.client}</td>
+                            <td className="px-4 py-3">{row.done}</td>
+                            <td className="px-4 py-3">
+                              <Chip color="var(--fl-warn)">▲ {row.waiting} days</Chip>
+                            </td>
+                            <td className="px-4 py-3 text-right">
+                              {money.format(row.amount)}
+                            </td>
+                            <td className="px-4 py-3 text-right">
+                              {outcomes[key] ? (
+                                <span className="text-[13px] text-[var(--fl-ok)]">
+                                  ✓ Draft queued
+                                </span>
+                              ) : (
+                                <button
+                                  type="button"
+                                  className={actionButton}
+                                  onClick={() =>
+                                    record(
+                                      key,
+                                      "queued",
+                                      `Invoice draft for ${row.id} queued for a person to review. Nothing was created in the accounting system.`,
+                                    )
+                                  }
+                                >
+                                  Draft invoice
+                                </button>
+                              )}
+                            </td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <NoMatches />
+              )
             ) : null}
-            {view === "leakage" ? <Leakage onOpen={setModal} /> : null}
-            {view === "workflow" ? <Workflow /> : null}
-            {view === "faq" ? (
-              <Questions open={openQuestion} onOpen={setOpenQuestion} />
+
+            {tab === "fu" ? (
+              followUpRows.length ? (
+                <div className="grid gap-4 md:grid-cols-2">
+                  {followUpRows.map((item) => {
+                    const key = `fu:${item.client}`;
+                    const outcome = outcomes[key];
+                    return (
+                      <article
+                        key={item.client}
+                        className="rounded-xl border border-[var(--fl-line)] bg-[var(--fl-card)] p-5"
+                      >
+                        <p className="font-semibold">{item.client}</p>
+                        <p className="text-[13px] text-[var(--fl-muted)]">{item.why}</p>
+                        <p className="my-3 border-l-2 border-[var(--fl-line)] pl-3 text-[13px] text-[var(--fl-muted)]">
+                          {item.draft}
+                        </p>
+                        <div className="flex items-center gap-2">
+                          {outcome === "queued" ? (
+                            <span className="text-[13px] text-[var(--fl-ok)]">
+                              ✓ Queued for approval
+                            </span>
+                          ) : outcome === "skipped" ? (
+                            <span className="text-[13px] text-[var(--fl-muted)]">
+                              Skipped for now
+                            </span>
+                          ) : (
+                            <>
+                              <button
+                                type="button"
+                                className={actionButton}
+                                onClick={() =>
+                                  record(
+                                    key,
+                                    "queued",
+                                    `Message to ${item.client} queued for a person to approve. Nothing was sent.`,
+                                  )
+                                }
+                              >
+                                Queue for approval
+                              </button>
+                              <button
+                                type="button"
+                                className={quietButton}
+                                onClick={() =>
+                                  record(key, "skipped", `${item.client} skipped for now.`)
+                                }
+                              >
+                                Skip
+                              </button>
+                            </>
+                          )}
+                        </div>
+                        <p className="mt-3 text-[13px] text-[var(--fl-muted)]">
+                          Next step: {item.next}
+                        </p>
+                      </article>
+                    );
+                  })}
+                </div>
+              ) : (
+                <NoMatches />
+              )
+            ) : null}
+
+            {tab === "how" ? (
+              <div className="space-y-5">
+                <div className="grid gap-2 sm:grid-cols-4">
+                  {steps.map((item, index) => (
+                    <button
+                      key={item.title}
+                      type="button"
+                      onClick={() => setStep(index)}
+                      aria-pressed={step === index}
+                      className={`rounded-lg border p-3 text-left ${
+                        step === index
+                          ? "border-[var(--fl-gold)] bg-[var(--fl-raised)]"
+                          : "border-[var(--fl-line)] bg-[var(--fl-card)]"
+                      }`}
+                    >
+                      <span className="text-xs text-[var(--fl-gold-text)]">{index + 1}</span>
+                      <span className="mt-1 block text-sm font-semibold">{item.title}</span>
+                      <span className="mt-1 block text-xs text-[var(--fl-muted)]">
+                        {item.line}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                <p className="rounded-lg border border-[var(--fl-line)] bg-[var(--fl-card)] p-4 text-sm leading-7 text-[var(--fl-muted)]">
+                  <span className="font-semibold text-[var(--fl-text)]">
+                    Step {step + 1}: {steps[step].title}.{" "}
+                  </span>
+                  {steps[step].detail}
+                </p>
+                <div className="grid gap-3 md:grid-cols-3">
+                  {[
+                    ["Your field-service software", "Job status, work orders, customer and service details"],
+                    ["Your accounting and payment tools", "Invoices, balances, payments, and deposits"],
+                    ["Havilah Flow", "Matches authorized records and surfaces exceptions for a person to review"],
+                  ].map(([title, body]) => (
+                    <div
+                      key={title}
+                      className="rounded-lg border border-[var(--fl-line)] bg-[var(--fl-card)] p-4"
+                    >
+                      <p className="text-sm font-semibold">{title}</p>
+                      <p className="mt-1.5 text-[13px] leading-6 text-[var(--fl-muted)]">{body}</p>
+                    </div>
+                  ))}
+                </div>
+                <p className="text-sm leading-7 text-[var(--fl-muted)]">
+                  Your software stays the system of record. Flow provides
+                  visibility and recommendations. Your team stays in control of
+                  approvals and actions.
+                </p>
+              </div>
+            ) : null}
+
+            {tab === "faq" ? (
+              <div className="space-y-2">
+                {questions.map((item, index) => (
+                  <div
+                    key={item.question}
+                    className="rounded-lg border border-[var(--fl-line)] bg-[var(--fl-card)]"
+                  >
+                    <button
+                      type="button"
+                      aria-expanded={openQuestion === index}
+                      onClick={() => setOpenQuestion(openQuestion === index ? -1 : index)}
+                      className="w-full px-4 py-3 text-left text-sm font-semibold"
+                    >
+                      {item.question}
+                    </button>
+                    {openQuestion === index ? (
+                      <p className="px-4 pb-4 text-sm leading-7 text-[var(--fl-muted)]">
+                        {item.answer}
+                      </p>
+                    ) : null}
+                  </div>
+                ))}
+              </div>
             ) : null}
           </div>
+
+          <p role="status" className="mt-4 min-h-5 text-[13px] text-[var(--fl-gold-text)]">
+            {notice}
+          </p>
+          <p className="mt-1 text-xs text-[var(--fl-muted)]">
+            Nothing is sent. Every reminder and draft waits for a person to approve it.
+          </p>
         </div>
       </div>
 
@@ -326,545 +709,14 @@ export function FlowDashboardPreview() {
         and amounts are fictional. No live system and no customer data are
         connected on this page, and what is available depends on the pilot.
       </p>
-
-      {modal && record ? (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4"
-          onClick={(event) => {
-            if (event.target === event.currentTarget) setModal(null);
-          }}
-        >
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="record-title"
-            className="w-full max-w-lg rounded-sm border border-white/10 bg-navy p-6"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
-                {modal.kind === "invoice"
-                  ? "Collections exception"
-                  : "Revenue verification"}
-              </p>
-              <button
-                type="button"
-                onClick={() => setModal(null)}
-                className="text-sm text-secondary hover:text-white"
-              >
-                Close
-              </button>
-            </div>
-            <h3
-              id="record-title"
-              className="mt-3 font-display text-2xl text-white"
-            >
-              {record.customer}
-            </h3>
-            <p className="mt-2 text-sm text-secondary">
-              {record.type} · {record.id}
-            </p>
-            <dl className="mt-5 grid grid-cols-2 gap-3">
-              <div className="rounded-sm border border-white/10 p-3">
-                <dt className="text-[11px] uppercase tracking-[0.14em] text-secondary">
-                  {modal.kind === "invoice" ? "Open balance" : "Estimated value"}
-                </dt>
-                <dd className="mt-1 text-white">
-                  {modal.kind === "invoice"
-                    ? (record as Invoice).balance
-                    : (record as Job).amount}
-                </dd>
-              </div>
-              <div className="rounded-sm border border-white/10 p-3">
-                <dt className="text-[11px] uppercase tracking-[0.14em] text-secondary">
-                  Status
-                </dt>
-                <dd className="mt-1 text-white">{record.age}</dd>
-              </div>
-            </dl>
-            <p className="mt-5 text-sm leading-7 text-secondary">
-              <span className="text-white">What Havilah Flow found. </span>
-              {record.found}
-            </p>
-            <p className="mt-4 rounded-sm border border-gold/30 bg-gold/[0.06] p-4 text-sm leading-7 text-secondary">
-              <span className="text-gold">Suggested team review. </span>
-              {record.action}
-            </p>
-            <button
-              type="button"
-              onClick={() => setModal(null)}
-              className="mt-5 rounded-sm border border-gold/40 px-4 py-2 text-sm uppercase tracking-[0.16em] text-gold hover:bg-gold/10"
-            >
-              Close details
-            </button>
-          </div>
-        </div>
-      ) : null}
     </section>
   );
 }
 
-function Overview({
-  onView,
-  step,
-  onStep,
-  onOpen,
-}: {
-  onView: (view: View) => void;
-  step: number;
-  onStep: (index: number) => void;
-  onOpen: (modal: Modal) => void;
-}) {
-  const facts = [
-    ["Open receivables", "$48,620", "Across 37 open invoices"],
-    ["Past due", "$18,450", "12 invoices need follow-up"],
-    ["Potential unbilled work", "$7,840", "6 completed jobs to review"],
-    ["Exceptions to review", "18", "Prioritized for your team"],
-  ];
-
+function NoMatches() {
   return (
-    <div className="space-y-6">
-      <div>
-        <p className="text-[11px] uppercase tracking-[0.16em] text-gold">
-          Your revenue, in clearer view
-        </p>
-        <h2 className="mt-2 font-display text-3xl text-white">
-          Good morning, Summit Mechanical.
-        </h2>
-        <p className="mt-2 max-w-2xl text-sm leading-7 text-secondary">
-          One place to see what has been earned, what is still outstanding, and
-          what may need attention. Sample reporting period, last 30 days.
-        </p>
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {facts.map(([label, value, note]) => (
-          <article key={label} className="rounded-sm border border-white/10 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-secondary">
-              {label}
-            </p>
-            <p className="mt-2 font-display text-2xl text-white">{value}</p>
-            <p className="mt-1 text-xs text-secondary">{note}</p>
-          </article>
-        ))}
-      </div>
-      <div className="grid gap-4 xl:grid-cols-[1.4fr_0.8fr]">
-        <div className="rounded-sm border border-white/10">
-          <div className="flex items-center justify-between gap-3 border-b border-white/10 px-4 py-3">
-            <div>
-              <h3 className="text-white">Priority collection follow-ups</h3>
-              <p className="text-xs text-secondary">
-                Illustrative invoices ranked for review
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => onView("collections")}
-              className="text-xs uppercase tracking-[0.14em] text-gold"
-            >
-              View all
-            </button>
-          </div>
-          <ul>
-            {invoices.slice(0, 4).map((row) => (
-              <li key={row.id} className="border-t border-white/10 first:border-t-0">
-                <button
-                  type="button"
-                  onClick={() => onOpen({ kind: "invoice", id: row.id })}
-                  className="grid w-full gap-1 px-4 py-3 text-left hover:bg-white/[0.03] sm:grid-cols-[1.4fr_0.7fr_0.8fr_0.7fr]"
-                >
-                  <span>
-                    <span className="block text-sm text-white">{row.customer}</span>
-                    <span className="block text-xs text-secondary">{row.segment}</span>
-                  </span>
-                  <span className="text-sm text-secondary">{row.id}</span>
-                  <span className="text-sm text-white">{row.balance}</span>
-                  <span className="text-xs uppercase tracking-[0.12em] text-gold">
-                    {row.age}
-                  </span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="rounded-sm border border-white/10 p-4">
-          <h3 className="text-white">What needs attention</h3>
-          <ul className="mt-4 space-y-4 text-sm">
-            <li>
-              <p className="text-white">Aging balance needs review</p>
-              <p className="text-secondary">
-                Redstone Property Group · $4,280 · 32 days overdue
-              </p>
-            </li>
-            <li>
-              <p className="text-white">Completed job may be unbilled</p>
-              <p className="text-secondary">Job JB-8814 · $1,940 estimated value</p>
-            </li>
-            <li>
-              <p className="text-white">Payment needs matching</p>
-              <p className="text-secondary">
-                $875 deposit not confidently matched to an invoice
-              </p>
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div className="rounded-sm border border-white/10 p-4">
-        <h3 className="text-white">How Havilah Flow fits in</h3>
-        <p className="text-xs text-secondary">A layer over your existing systems</p>
-        <div className="mt-4 grid gap-2 sm:grid-cols-4">
-          {steps.map((item, index) => (
-            <button
-              key={item.title}
-              type="button"
-              onClick={() => onStep(index)}
-              className={`rounded-sm border p-3 text-left ${
-                step === index
-                  ? "border-gold/50 bg-gold/[0.06]"
-                  : "border-white/10"
-              }`}
-            >
-              <p className="text-[11px] uppercase tracking-[0.14em] text-gold">
-                {index + 1}
-              </p>
-              <p className="mt-2 text-sm text-white">{item.title}</p>
-              <p className="mt-1 text-xs text-secondary">{item.line}</p>
-            </button>
-          ))}
-        </div>
-        <p className="mt-4 text-sm leading-7 text-secondary">
-          <span className="text-white">
-            Step {step + 1} — {steps[step].title}.{" "}
-          </span>
-          {steps[step].detail}
-        </p>
-      </div>
-      <div className="grid gap-4 lg:grid-cols-2">
-        <div className="rounded-sm border border-white/10 p-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-white">Completed jobs to verify</h3>
-            <button
-              type="button"
-              onClick={() => onView("leakage")}
-              className="text-xs uppercase tracking-[0.14em] text-gold"
-            >
-              Review all
-            </button>
-          </div>
-          <p className="mt-1 text-xs text-secondary">
-            Potentially unbilled work. Not assumed lost revenue.
-          </p>
-          {(["JB-8814", "JB-8821"] as const).map((id) => (
-            <button
-              key={id}
-              type="button"
-              onClick={() => onOpen({ kind: "job", id })}
-              className="mt-3 block w-full border-t border-white/10 pt-3 text-left"
-            >
-              <span className="text-sm text-white">
-                {id} · {jobs[id].customer}
-              </span>
-              <span className="mt-1 block text-xs text-secondary">
-                {jobs[id].age} · {jobs[id].status}
-              </span>
-              <span className="mt-1 block text-sm text-gold">{jobs[id].amount}</span>
-            </button>
-          ))}
-        </div>
-        <div className="rounded-sm border border-gold/30 bg-gold/[0.04] p-4">
-          <h3 className="text-white">Built to work alongside your software</h3>
-          <p className="mt-3 text-sm leading-7 text-secondary">
-            No replacement project. Havilah Flow is designed to read authorized
-            information, surface exceptions, and help your team decide what to
-            do next.
-          </p>
-          <div className="mt-4 flex flex-wrap gap-2 text-xs uppercase tracking-[0.12em] text-gold">
-            <span className="rounded-sm border border-gold/30 px-2 py-1">
-              Field service
-            </span>
-            <span className="rounded-sm border border-gold/30 px-2 py-1">
-              Accounting
-            </span>
-            <span className="rounded-sm border border-gold/30 px-2 py-1">
-              Payments
-            </span>
-          </div>
-          <button
-            type="button"
-            onClick={() => onView("workflow")}
-            className="mt-4 text-xs uppercase tracking-[0.14em] text-gold"
-          >
-            Explore
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Collections({
-  rows,
-  filter,
-  onFilter,
-  onOpen,
-}: {
-  rows: Invoice[];
-  filter: "all" | Invoice["filter"];
-  onFilter: (filter: "all" | Invoice["filter"]) => void;
-  onOpen: (modal: Modal) => void;
-}) {
-  const filters: { id: "all" | Invoice["filter"]; label: string }[] = [
-    { id: "all", label: "All invoices" },
-    { id: "overdue", label: "Overdue" },
-    { id: "due", label: "Due soon" },
-    { id: "partial", label: "Partial payment" },
-  ];
-  return (
-    <div>
-      <h2 className="font-display text-2xl text-white">Collections workspace</h2>
-      <p className="mt-2 max-w-2xl text-sm leading-7 text-secondary">
-        See outstanding balances, understand aging, and decide which follow-up
-        deserves attention first. Select any invoice for more context.
-      </p>
-      <div className="mt-5 flex flex-wrap gap-2">
-        {filters.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => onFilter(item.id)}
-            className={`rounded-sm border px-3 py-2 text-xs uppercase tracking-[0.12em] ${
-              filter === item.id
-                ? "border-gold/50 text-gold"
-                : "border-white/10 text-secondary"
-            }`}
-          >
-            {item.label}
-          </button>
-        ))}
-      </div>
-      <ul className="mt-4 divide-y divide-white/10 rounded-sm border border-white/10">
-        {rows.map((row) => (
-          <li key={row.id}>
-            <button
-              type="button"
-              onClick={() => onOpen({ kind: "invoice", id: row.id })}
-              className="grid w-full gap-1 px-4 py-3 text-left hover:bg-white/[0.03] sm:grid-cols-5"
-            >
-              <span className="text-sm text-white">{row.customer}</span>
-              <span className="text-sm text-secondary">{row.id}</span>
-              <span className="text-sm text-secondary">{row.amount}</span>
-              <span className="text-sm text-white">{row.balance}</span>
-              <span className="text-xs uppercase tracking-[0.12em] text-gold">
-                {row.status}
-              </span>
-            </button>
-          </li>
-        ))}
-      </ul>
-      <p className="mt-4 text-sm leading-7 text-secondary">
-        Suggested follow-ups are recommendations for your team. No messages or
-        financial records are changed from this page.
-      </p>
-    </div>
-  );
-}
-
-function Leakage({ onOpen }: { onOpen: (modal: Modal) => void }) {
-  const columns: { title: string; cards: { id?: string; title: string; note: string; money: string }[] }[] =
-    [
-      {
-        title: "Completed jobs",
-        cards: [
-          {
-            id: "JB-8814",
-            title: "JB-8814 · Redstone Property",
-            note: "Completed · 4 days ago",
-            money: "$1,940 estimated",
-          },
-          {
-            id: "JB-8821",
-            title: "JB-8821 · Mesa Vista Homes",
-            note: "Completed · 3 days ago",
-            money: "$1,280 estimated",
-          },
-        ],
-      },
-      {
-        title: "Matching review",
-        cards: [
-          {
-            id: "JB-8814",
-            title: "Possible invoice gap",
-            note: "No confident invoice match found",
-            money: "Needs verification",
-          },
-          {
-            id: "JB-8830",
-            title: "Amount mismatch",
-            note: "Job and invoice totals differ",
-            money: "$420 variance",
-          },
-        ],
-      },
-      {
-        title: "Team review",
-        cards: [
-          {
-            id: "JB-8821",
-            title: "Check invoice status",
-            note: "Possible draft or delayed sync",
-            money: "Awaiting review",
-          },
-        ],
-      },
-      {
-        title: "Resolved",
-        cards: [
-          {
-            title: "JB-8792 · Copper State",
-            note: "Invoice located after review",
-            money: "Matched · $860",
-          },
-        ],
-      },
-    ];
-  return (
-    <div>
-      <h2 className="font-display text-2xl text-white">
-        Completed work and invoice matching
-      </h2>
-      <p className="mt-2 max-w-2xl text-sm leading-7 text-secondary">
-        Job records are compared with invoice records. A flag is a prompt to
-        investigate, not proof that revenue was lost.
-      </p>
-      <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {columns.map((column) => (
-          <div key={column.title} className="rounded-sm border border-white/10 p-3">
-            <h3 className="text-[11px] uppercase tracking-[0.14em] text-secondary">
-              {column.title}
-            </h3>
-            {column.cards.map((card) =>
-              card.id ? (
-                <button
-                  key={card.title}
-                  type="button"
-                  onClick={() => onOpen({ kind: "job", id: card.id! })}
-                  className="mt-3 block w-full rounded-sm border border-white/10 p-3 text-left hover:border-gold/30"
-                >
-                  <span className="block text-sm text-white">{card.title}</span>
-                  <span className="mt-1 block text-xs text-secondary">{card.note}</span>
-                  <span className="mt-2 block text-sm text-gold">{card.money}</span>
-                </button>
-              ) : (
-                <div
-                  key={card.title}
-                  className="mt-3 rounded-sm border border-white/10 p-3"
-                >
-                  <p className="text-sm text-white">{card.title}</p>
-                  <p className="mt-1 text-xs text-secondary">{card.note}</p>
-                  <p className="mt-2 text-sm text-gold">{card.money}</p>
-                </div>
-              ),
-            )}
-          </div>
-        ))}
-      </div>
-      <p className="mt-4 text-sm leading-7 text-secondary">
-        A job may be invoiced in another system, covered by a contract,
-        intentionally not billable, or waiting on approval. Flow highlights
-        records for a person to verify before anyone acts.
-      </p>
-    </div>
-  );
-}
-
-function Workflow() {
-  return (
-    <div>
-      <h2 className="font-display text-2xl text-white">How Havilah Flow works</h2>
-      <p className="mt-2 max-w-2xl text-sm leading-7 text-secondary">
-        A revenue intelligence layer, not a replacement for the software your
-        team already relies on.
-      </p>
-      <div className="mt-5 grid gap-3 md:grid-cols-3">
-        {[
-          ["Your field-service software", "Job status, work orders, customer and service details"],
-          ["Your accounting and payment tools", "Invoices, balances, payments, and deposits"],
-          ["Havilah Flow", "Connects authorized data, matches records, and surfaces exceptions"],
-        ].map(([title, body]) => (
-          <article key={title} className="rounded-sm border border-white/10 p-4">
-            <h3 className="text-white">{title}</h3>
-            <p className="mt-2 text-sm leading-6 text-secondary">{body}</p>
-          </article>
-        ))}
-      </div>
-      <ol className="mt-4 grid gap-3 md:grid-cols-3">
-        {[
-          ["Bring records together", "Use an approved connection or a controlled export."],
-          ["Identify exceptions", "Compare jobs, invoices, and payments with defined rules."],
-          ["Help your team act", "Prioritize follow-ups and reviews before any change is made."],
-        ].map(([title, body], index) => (
-          <li key={title} className="rounded-sm border border-white/10 p-4">
-            <p className="text-[11px] uppercase tracking-[0.14em] text-gold">
-              {index + 1}
-            </p>
-            <p className="mt-2 text-white">{title}</p>
-            <p className="mt-2 text-sm leading-6 text-secondary">{body}</p>
-          </li>
-        ))}
-      </ol>
-      <p className="mt-4 text-sm leading-7 text-secondary">
-        Your software stays the system of record. Flow provides visibility and
-        recommendations. Your team remains in control of approvals and actions.
-      </p>
-      <div className="mt-4 flex flex-wrap gap-2 text-xs uppercase tracking-[0.12em] text-gold">
-        <span className="rounded-sm border border-gold/30 px-2 py-1">
-          No system replacement
-        </span>
-        <span className="rounded-sm border border-gold/30 px-2 py-1">
-          Human review
-        </span>
-        <span className="rounded-sm border border-gold/30 px-2 py-1">
-          Authorized access
-        </span>
-      </div>
-    </div>
-  );
-}
-
-function Questions({
-  open,
-  onOpen,
-}: {
-  open: number;
-  onOpen: (index: number) => void;
-}) {
-  return (
-    <div>
-      <h2 className="font-display text-2xl text-white">
-        Questions business owners ask
-      </h2>
-      <p className="mt-2 max-w-2xl text-sm leading-7 text-secondary">
-        A product concept. Connections and capabilities are confirmed during
-        validation.
-      </p>
-      <div className="mt-5 space-y-2">
-        {questions.map((item, index) => (
-          <div key={item.question} className="rounded-sm border border-white/10">
-            <button
-              type="button"
-              aria-expanded={open === index}
-              onClick={() => onOpen(open === index ? -1 : index)}
-              className="w-full px-4 py-3 text-left text-sm text-white"
-            >
-              {item.question}
-            </button>
-            {open === index ? (
-              <p className="px-4 pb-4 text-sm leading-7 text-secondary">
-                {item.answer}
-              </p>
-            ) : null}
-          </div>
-        ))}
-      </div>
-    </div>
+    <p className="rounded-xl border border-[var(--fl-line)] bg-[var(--fl-card)] p-5 text-sm text-[var(--fl-muted)]">
+      No matches. Clear the search to see everything.
+    </p>
   );
 }
